@@ -52,6 +52,8 @@ EOF
 RUN <<EOF
 sudo apt-get update
 sudo apt-get install --yes --no-install-recommends \
-	python3-pip
+	python3-pip \
+	bash-completion \
+	libclang-dev
 sudo rm -rf /var/lib/apt/lists/*
 EOF

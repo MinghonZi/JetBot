@@ -8,7 +8,7 @@
     },
 
     "runArgs": [
-        "-v", "/tmp/.X11-unix:/tmp/.X11-unix",  // Comment this if not on Linux, or if on Linux but using wayland for display
+        "-v", "/tmp/.X11-unix:/tmp/.X11-unix",  // Comment this if using Wayland for display or not on Linux
         "--gpus", "all",
         "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined"  // enables using a ptrace-based debugger like C++, Go, and Rust
     ],
@@ -31,9 +31,15 @@
         "vscode": {
             "extensions": [
                 "ms-azuretools.vscode-docker",
-                "tamasfe.even-better-toml"
+                "rust-lang.rust-analyzer",
+                "vadimcn.vscode-lldb",
+                "tamasfe.even-better-toml",
+                "serayuzgur.crates"
             ],
             "settings": {
+                "files.watcherExclude": {
+                    "**/target/**": true
+                },
                 // https://github.com/microsoft/vscode-remote-release/issues/1671
                 "terminal.integrated.profiles.linux": {
                     "bash": {

@@ -9,7 +9,10 @@
 
 ## Communication Protocols
 
-[Linux I2C device interface](https://www.kernel.org/doc/Documentation/i2c/dev-interface)
+[Linux I2C device interface](https://docs.kernel.org/i2c/dev-interface.html)
+
+[Linux i2c Subsystem](https://i2c.wiki.kernel.org)
+- i2c-tools > libi2c
 
 [Internet I2C Device Directory](https://i2cdevices.org/)
 
@@ -39,6 +42,15 @@ An [Introduction](https://www.beyondlogic.org/an-introduction-to-chardev-gpio-an
 [The Cargo Book](https://doc.rust-lang.org/cargo/)
 
 [A Comprehensive list of all Rust learning material](https://www.reddit.com/r/rust/comments/1143yar/a_comprehensive_list_of_all_rust_learning_material/)
+
+
+## Algos
+
+### SLAM
+
+https://github.com/cartographer-project/cartographer
+
+https://github.com/introlab/rtabmap
 
 
 ## Misc

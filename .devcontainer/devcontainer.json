@@ -1,5 +1,5 @@
 {
-    "name": "ELEC330 JetBot",
+    "name": "JetBot",
 
     "build": {
         "dockerfile": "./Dockerfile",
@@ -18,9 +18,9 @@
         "NVIDIA_DRIVER_CAPABILITIES": "all"
     },
 
-    "remoteUser": "elec330",
-    "workspaceMount": "source=${localWorkspaceFolder},target=/home/elec330/ws/src,type=bind",
-    "workspaceFolder": "/home/elec330/ws/src",
+    "remoteUser": "minghongxu",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/home/minghongxu/ws/src,type=bind",
+    "workspaceFolder": "/home/minghongxu/ws/src",
 
     // "postCreateCommand": "./.devcontainer/postCreateCommand.sh",
 

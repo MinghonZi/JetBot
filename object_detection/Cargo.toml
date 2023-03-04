@@ -1,12 +1,12 @@
 # https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [package]
-name = "objdetect"
+name = "object_detection"
 version = "0.0.0"
 edition = "2021"
 
 [dependencies]
-r2r = "0.*"
+r2r = "0.*"  # requires libclang installed (e.g. libclang-dev on ubuntu)
 # futures = "0.*"
 
 [dependencies.pyo3]

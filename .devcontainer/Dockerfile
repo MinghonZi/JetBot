@@ -5,7 +5,7 @@ FROM osrf/ros:humble-desktop-jammy AS base
 SHELL ["/bin/bash", "-c"]
 
 # Create the user
-ARG USERNAME=elec330
+ARG USERNAME=minghongxu
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 RUN <<-EOF

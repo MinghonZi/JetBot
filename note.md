@@ -10,6 +10,8 @@ In Linux kernel, what is
 
 How to access *linux character device* within the container?
 
+[pywrapcc](https://github.com/google/pywrapcc)
+
 
 
 ## Learning Resources
@@ -33,6 +35,8 @@ How to access *linux character device* within the container?
 [Linux i2c Subsystem](https://i2c.wiki.kernel.org)
 - i2c-tools > libi2c
 
+[Interfacing with I2C Devices](https://elinux.org/Interfacing_with_I2C_Devices)
+
 [Internet I2C Device Directory](https://i2cdevices.org/)
 
 [I2C addresses](https://learn.adafruit.com/i2c-addresses/the-list)
@@ -54,6 +58,14 @@ An [Introduction](https://www.beyondlogic.org/an-introduction-to-chardev-gpio-an
 
 
 ## C/C++
+
+[Modern C++ Tutorial](https://github.com/changkun/modern-cpp-tutorial)
+
+[Modern C++ Features](https://github.com/AnthonyCalandra/modern-cpp-features)
+
+[Awesome C++](https://github.com/fffaraz/awesome-cpp)
+
+[Trending C++ Repos](https://github.com/trending/c++)
 
 Char is of 1 byte in C language.
 
@@ -93,6 +105,8 @@ https://code.visualstudio.com/docs/cpp/customize-default-settings-cpp#_visual-st
 Balance `new` with `delete`, `new[]` with `delete[]`, and `malloc` with `free`. Well-written C++ will contain almost none of those; leave the responsibiltiy for dynamic memo­ry and lifetime management to suitable container or manager classes, most notably `std::vector` and `std::unique_ptr`.
 
 [Modern C++ idiom for allocating / deallocating an I/O buffer](https://stackoverflow.com/a/35798248/20015297)
+
+[A Buffers Library for C++20: Part 1](https://vector-of-bool.github.io/2020/08/29/buffers-1.html)
 
 [Tips for Efficient C, Effective C, and lowering power consumption](https://embeddedgurus.com/stack-overflow/tag/i2c/)
 

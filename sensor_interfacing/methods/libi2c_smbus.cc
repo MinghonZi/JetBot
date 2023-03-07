@@ -18,32 +18,40 @@ extern "C" {
 #include <i2c/smbus.h>
 }
 
+#include <bit>
+#include <array>
 #include <iostream>
 #include <bitset>
 
 #include "i2c_dev_reg.hh"
 
+using namespace std;
 
 auto main() -> int {
-constexpr int encoder_i2c_slave_addr = 0x20;
+constexpr int addr = 0x20; // I2C slave addr
 
 int adapter_num = 0;
 char fp[13];
 snprintf(fp, sizeof(fp), "/dev/i2c-%d", adapter_num);
 int fd = open(fp, O_RDWR);
-ioctl(fd, I2C_SLAVE, encoder_i2c_slave_addr);
+ioctl(fd, I2C_SLAVE, addr);
 
-i2c_smbus_write_i2c_block_data(fd, REG_CVALB4 , I2C_SMBUS_BLOCK_MAX, reinterpret_cast<const unsigned char *>("\x00\x00\x00\x00"));
-i2c_smbus_write_i2c_block_data(fd, REG_ISTEPB4, I2C_SMBUS_BLOCK_MAX, reinterpret_cast<const unsigned char *>("\x00\x00\x00\x01"));
-i2c_smbus_write_i2c_block_data(fd, REG_CMAXB4 , I2C_SMBUS_BLOCK_MAX, reinterpret_cast<const unsigned char *>("\x7F\xFF\xFF\xFF"));
-i2c_smbus_write_i2c_block_data(fd, REG_CMINB4 , I2C_SMBUS_BLOCK_MAX, reinterpret_cast<const unsigned char *>("\x80\x00\x00\x00"));
+/* NOT WORKING */
+
+// i2c_smbus_write_i2c_block_data(fd, bit_cast<__u8>(REG_CMAXB4 ), I2C_SMBUS_BLOCK_MAX, );
+// i2c_smbus_write_i2c_block_data(fd, bit_cast<__u8>(REG_CMINB4 ), I2C_SMBUS_BLOCK_MAX, );
+// i2c_smbus_write_i2c_block_data(fd, bit_cast<__u8>(REG_ISTEPB4), I2C_SMBUS_BLOCK_MAX, );
+// i2c_smbus_write_i2c_block_data(fd, bit_cast<__u8>(REG_CVALB4 ), I2C_SMBUS_BLOCK_MAX, );
 
 for (int32_t res;;) {
-    i2c_smbus_read_i2c_block_data(fd, REG_CVALB4, I2C_SMBUS_BLOCK_MAX, reinterpret_cast<unsigned char *>(&res));
-    res = __builtin_bswap32(res);  // swap byte order (I2C is big-endian)
-    std::cout << res << std::endl;
-    std::cout << std::bitset<32>(res) << std::endl;
-    usleep(100000);
+   // i2c_smbus_read_i2c_block_data(fd, bit_cast<__u8>(REG_CVALB4), I2C_SMBUS_BLOCK_MAX, bit_cast<__u8*>(&res));
+
+   // I2C is big-endian, and assume the arch is little-endian
+   res = __builtin_bswap32(res);
+
+   cout << res << endl;
+   cout << bitset<32>(res) << endl;
+   usleep(100000);
 }
 
 close(fd);

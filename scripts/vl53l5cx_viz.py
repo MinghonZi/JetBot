@@ -18,7 +18,6 @@ def viz(frame):
     distance_mm = np.array(data.distance_mm).reshape((8, 8))
     plt.clf()
     ax: Axes = sns.heatmap(distance_mm,
-        vmax=1100,
         vmin=0,
         cmap = "coolwarm",
         square=True,

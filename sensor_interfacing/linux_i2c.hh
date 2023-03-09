@@ -22,7 +22,7 @@
 #include <array>
 #include <vector>
 #include <bit> // bit_cast
-#include <exception>
+#include <stdexcept> // runtime_error
 
 template <std::size_t S>
 using bytearray = std::array<std::byte, S>;
@@ -46,7 +46,7 @@ public:
    }
 
    void
-   read(std::byte &byte, std::byte reg) {
+   read(std::byte reg, std::byte &byte) {
       i2c_msg msgs[2] {{
          .addr  = static_cast<__u16>(tgt_addr_),
          .flags = 0, // write
@@ -70,7 +70,7 @@ public:
    }
 
    void
-   read(std::span<std::byte> bytes, std::byte reg) {
+   read(std::byte reg, std::span<std::byte> bytes) {
       i2c_msg msgs[2] {{
          .addr  = static_cast<__u16>(tgt_addr_),
          .flags = 0, // write
@@ -93,7 +93,7 @@ public:
    }
 
    void
-   write(std::byte byte, std::byte reg) {
+   write(std::byte reg, std::byte byte) {
       // Construct buffer as || reg | one byte ||
       bytearray<sizeof(reg) + sizeof(byte)> buf;
       std::memcpy(buf.data(), &reg, sizeof(reg));
@@ -116,7 +116,7 @@ public:
    }
 
    void
-   write(std::span<std::byte const> bytes, std::byte reg) {
+   write(std::byte reg, std::span<std::byte const> bytes) {
       // Construct buffer as || reg | bytes ||
       std::vector<std::byte> buf(sizeof(reg) + bytes.size());
       std::memcpy(buf.data(), &reg, sizeof(reg));

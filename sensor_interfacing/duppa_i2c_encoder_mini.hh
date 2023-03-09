@@ -59,14 +59,52 @@ public:
 
    void
    gconf_wr(std::byte byte) {
-      LinuxI2C::write(byte, REG_GCONF);
+      LinuxI2C::write(REG_GCONF, byte);
    }
 
    [[nodiscard]] int32_t
    cval_rd() {
-      bytearray<4> bytes; // 4 bytes; 32 bits
-      LinuxI2C::read(bytes, REG_CVALB4);
+      bytearray<4> bytes;
+      LinuxI2C::read(REG_CVALB4, bytes);
+      return to_int32(bytes);
+   }
 
+   void
+   cval_clr() {
+      LinuxI2C::write(
+         REG_CVALB4,
+         std::array{
+            std::byte{0x00},
+            std::byte{0x00},
+            std::byte{0x00},
+            std::byte{0x00}});
+   }
+
+   void
+   cmax_wr(int32_t val) {
+      LinuxI2C::write(REG_CMAXB4, to_bytes(val));
+   }
+
+   void
+   cmin_wr(int32_t val) {
+      LinuxI2C::write(REG_CMINB4, to_bytes(val));
+   }
+
+   void
+   istep_wr(int32_t val) {
+      LinuxI2C::write(REG_ISTEPB4, to_bytes(val));
+   }
+
+   void
+   dpperiod_wr(std::byte val) {
+      LinuxI2C::write(REG_DPPERIOD, val);
+   }
+
+protected:
+   // TODO: Replace __builtin_bswap32 with C++23 std::byteswap
+
+   [[nodiscard]] static int32_t
+   to_int32(bytearray<4> bytes) {
       // I2C is big-endian
       if constexpr (std::endian::native == std::endian::little)
          return __builtin_bswap32(std::bit_cast<int32_t>(bytes));
@@ -75,55 +113,14 @@ public:
       else std::terminate();
    }
 
-   void
-   cval_clr() {
-      LinuxI2C::write(
-         std::array{
-            std::byte{0x00},
-            std::byte{0x00},
-            std::byte{0x00},
-            std::byte{0x00}},
-         REG_CVALB4);
-   }
-
-   // TODO: DRY the endianness check
-   // TODO: Replace __builtin_bswap32 with C++23 std::byteswap
-
-   void
-   cmax_wr(int32_t val) {
+   [[nodiscard]] static bytearray<4>
+   to_bytes(int32_t val) {
       // Send MSB first
       if constexpr (std::endian::native == std::endian::little)
          val = __builtin_bswap32(val);
       else if constexpr (std::endian::native == std::endian::big);
       else std::terminate();
 
-      LinuxI2C::write(std::bit_cast<bytearray<sizeof(val)>>(val), REG_CMAXB4);
-   }
-
-   void
-   cmin_wr(int32_t val) {
-      // Send MSB first
-      if constexpr (std::endian::native == std::endian::little)
-         val = __builtin_bswap32(val);
-      else if constexpr (std::endian::native == std::endian::big);
-      else std::terminate();
-
-      LinuxI2C::write(std::bit_cast<bytearray<sizeof(val)>>(val), REG_CMINB4);
-   }
-
-   void
-   istep_wr(int32_t val) {
-      // Send MSB first
-      if constexpr (std::endian::native == std::endian::little)
-         val = __builtin_bswap32(val);
-      else if constexpr (std::endian::native == std::endian::big);
-      else std::terminate();
-
-      LinuxI2C::write(std::bit_cast<bytearray<sizeof(val)>>(val), REG_ISTEPB4);
-   }
-
-   void
-   dpperiod_wr(std::byte val) {
-      LinuxI2C::write(val, REG_DPPERIOD);
+      return std::bit_cast<bytearray<4>>(val);
    }
 };

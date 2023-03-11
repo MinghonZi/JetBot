@@ -1,10 +1,10 @@
 .DEFAULT_GOAL := build
 
 init:
-	cmake -DCMAKE_C_COMPILER=gcc-11 -DCMAKE_CXX_COMPILER=g++-11 -S . -B build
+	cmake -D CMAKE_C_COMPILER=gcc-11 -D CMAKE_CXX_COMPILER=g++-11 -S . -B build -G Ninja
 
 build: init
-	cmake --build build -j 2
+	NINJA_STATUS="[%p/%f/%t %e] " cmake --build build -j 2
 
 install: build
 	cmake --install build

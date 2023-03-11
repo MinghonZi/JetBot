@@ -1,5 +1,6 @@
 {
     "files.exclude": {
+        "extern/": true,
         "**/target/": true,
         "**/__pycache__/": true,
     },
@@ -7,6 +8,7 @@
     "explorer.fileNesting.enabled": true,
     "explorer.fileNesting.expand": false,
     "explorer.fileNesting.patterns": {
+        ".gitignore": ".gitattributes, .gitmodules",
         "cargo.toml": ".clippy.toml, .rustfmt.toml, cargo.lock, clippy.toml, cross.toml, rust-toolchain.toml, rustfmt.toml",
     },
 

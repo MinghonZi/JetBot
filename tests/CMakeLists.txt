@@ -1,0 +1,2 @@
+add_executable(duppa_i2c_encoder_mini_test duppa_i2c_encoder_mini_test.cc)
+add_executable(linux_i2c_test linux_i2c_test.cc)

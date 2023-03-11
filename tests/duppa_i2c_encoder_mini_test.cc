@@ -1,7 +1,7 @@
 #include <iostream>
 #include <bitset>
 
-#include "duppa_i2c_encoder_mini.hh"
+#include <duppa_i2c_encoder_mini.hh>
 
 using namespace std;
 

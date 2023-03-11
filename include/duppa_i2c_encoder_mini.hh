@@ -1,6 +1,6 @@
 #pragma once
 
-#include "linux_i2c.hh"
+#include <linux_i2c.hh>
 
 /* Encoder register definition */
 inline constexpr std::byte REG_GCONF {0x00};
@@ -56,10 +56,18 @@ inline constexpr std::byte RMIN {0x80};
 class DuPPaI2CEncoderMini : private LinuxI2C {
 public:
    using LinuxI2C::LinuxI2C;
+   // TODO: pybind11 doesn't have builtin conversion for std::byte
+   DuPPaI2CEncoderMini(uint8_t adapter_id, uint8_t tgt_addr)
+      : LinuxI2C{adapter_id, std::byte{tgt_addr}} {}
 
    void
    gconf_wr(std::byte byte) {
       LinuxI2C::write(REG_GCONF, byte);
+   }
+   // TODO: pybind11 doesn't have builtin conversion for std::byte
+   void
+   gconf_wr(uint8_t byte) {
+      LinuxI2C::write(REG_GCONF, std::byte{byte});
    }
 
    [[nodiscard]] int32_t
@@ -98,6 +106,11 @@ public:
    void
    dpperiod_wr(std::byte val) {
       LinuxI2C::write(REG_DPPERIOD, val);
+   }
+   // TODO: pybind11 doesn't have builtin conversion for std::byte
+   void
+   dpperiod_wr(uint8_t val) {
+      LinuxI2C::write(REG_DPPERIOD, std::byte{val});
    }
 
 protected:

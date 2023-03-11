@@ -1,0 +1,11 @@
+// https://code.visualstudio.com/docs/cpp/c-cpp-properties-schema-reference
+{
+    "configurations": [{
+        "name": "Linux",
+        "compilerPath": "/usr/bin/gcc-11",
+        "cppStandard": "c++20",
+        "includePath": ["${workspaceFolder}/include", "${workspaceFolder}/extern/pybind11/include", "/usr/include/python3.7/"],
+        // "compileCommands": "/path/to/compile_commands.json",
+    }],
+    "version": 4
+}

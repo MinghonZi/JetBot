@@ -16,6 +16,10 @@ How to access *linux character device* within the container?
 
 ## Learning Resources
 
+[The Linux man-pages project](https://www.kernel.org/doc/man-pages/)
+
+[Linux Kernel Labs / Character device drivers](https://linux-kernel-labs.github.io/refs/heads/master/labs/device_drivers.html)
+
 [Embedded Linux Wiki](https://elinux.org)
 
 [嵌入式系统及物联网应用](https://theembeddedsystem.readthedocs.io/en/latest/index.html)
@@ -29,6 +33,8 @@ How to access *linux character device* within the container?
 
 
 ## Communication Protocols
+
+[`ioctl` based interfaces](https://docs.kernel.org/driver-api/ioctl.html)
 
 [Linux I2C device interface](https://docs.kernel.org/i2c/dev-interface.html)
 
@@ -62,6 +68,8 @@ An [Introduction](https://www.beyondlogic.org/an-introduction-to-chardev-gpio-an
 [Modern C++ Tutorial](https://github.com/changkun/modern-cpp-tutorial)
 
 [Modern C++ Features](https://github.com/AnthonyCalandra/modern-cpp-features)
+
+[An Introduction to Modern CMake by Henry Schreiner](https://cliutils.gitlab.io/modern-cmake/)
 
 [Awesome C++](https://github.com/fffaraz/awesome-cpp)
 
@@ -112,6 +120,10 @@ Balance `new` with `delete`, `new[]` with `delete[]`, and `malloc` with `free`. 
 
 [Why single-file headers?](https://github.com/nothings/stb#why-single-file-headers)
 
+[span: the best span](https://brevzin.github.io/c++/2018/12/03/span-best-span/)
+
+[pybind11 built-in conversions](https://pybind11.readthedocs.io/en/stable/advanced/cast/overview.html#conversion-table)
+[pybind11 built-in C++ to Python exception translation](https://pybind11.readthedocs.io/en/stable/advanced/exceptions.html)
 
 
 ## Rust
@@ -123,6 +135,8 @@ Balance `new` with `delete`, `new[]` with `delete[]`, and `malloc` with `free`. 
 [Hardware Abstraction Layer (HAL) for embedded systems](https://github.com/rust-embedded/embedded-hal/)
 
 [The Book](https://doc.rust-lang.org/book/)
+
+[The Unstable Book](https://doc.rust-lang.org/beta/unstable-book/the-unstable-book.html)
 
 [The Cargo Book](https://doc.rust-lang.org/cargo/)
 
@@ -151,3 +165,27 @@ https://github.com/introlab/rtabmap
 [Dockerfile RUN over multiple lines without && \\](https://github.com/moby/moby/issues/16058#issuecomment-881901519)
 
 [Why Docker does not set $USER env var](https://stackoverflow.com/a/54411816/20015297)
+
+Keyboard libraries, e.g. pynput and keyboard, [require either X server or uinput](https://github.com/ollipal/sshkeyboard#comparison-to-other-keyboard-libraries)
+- [[keyboard] Reading keypresses through SSH](https://github.com/boppreh/keyboard/issues/195)
+
+[Creating a singleton in Python](https://stackoverflow.com/questions/6760685/creating-a-singleton-in-python)
+
+Differential drive kinematics
+- https://www.cs.columbia.edu/~allen/F19/NOTES/icckinematics.pdf
+- https://learn.parallax.com/tutorials/robot/cyberbot/navigation-cyberbot/left-and-right-turns
+
+> hatchling, hatchling, flit, and pdm-pep517 will look for `src/<package-name>` in addition to `<package-name>` without extra configuration. [Source](https://github.com/pypa/packaging-problems/issues/615#issuecomment-1257038564)
+
+[ImportError: dynamic module does not define module export function (PyInit_python_example)](https://github.com/pybind/python_example/issues/99#issuecomment-1065104070)
+
+### Compling OpenCV
+
+[A blog](https://www.simonwenkel.com/notes/software_libraries/opencv/compiling-opencv.html)
+
+[Compilation flags](https://github.com/opencv/opencv/blob/725e440d278aca07d35a5e8963ef990572b07316/CMakeLists.txt)
+
+[Some required libraries on debian](https://gist.github.com/changx03/b4aa9bb2827217c3a6a7e08365441417)
+- `apt install qt5-default`
+
+SIFT and SURF are [non-free algorithms](https://stackoverflow.com/a/64525431/20015297)

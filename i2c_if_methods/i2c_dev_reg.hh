@@ -39,7 +39,6 @@ inline constexpr std::byte IPUP_DISABLE {0x00};
 inline constexpr std::byte RMOD_X4 {0x10};
 inline constexpr std::byte RMOD_X2 {0x08};
 inline constexpr std::byte RMOD_X1 {0x00};
-
 inline constexpr std::byte RESET {0x80};
 
 /* Encoder status bits and setting. Use with: INTCONF for set and with ESTATUS for read the bits */

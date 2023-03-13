@@ -37,9 +37,12 @@ public:
       fd_ = open_i2c_bus(adapter_id_);
    }
 
-   // TODO: Delete copy constructor
    // TODO: Add moving constructor
    // TODO: Add more constructors for convience
+
+   // Disable the default copy constructor and copy assignment operator
+   LinuxI2C(const LinuxI2C&) = delete;
+   LinuxI2C &operator=(const LinuxI2C&) = delete;
 
    ~LinuxI2C() {
       close(fd_);

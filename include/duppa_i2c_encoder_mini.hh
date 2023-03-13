@@ -113,6 +113,8 @@ public:
       LinuxI2C::write(REG_DPPERIOD, std::byte{val});
    }
 
+   // FIXME: Non exhaustive
+
 protected:
    // TODO: Replace __builtin_bswap32 with C++23 std::byteswap
 

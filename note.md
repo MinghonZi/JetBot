@@ -125,6 +125,9 @@ Balance `new` with `delete`, `new[]` with `delete[]`, and `malloc` with `free`. 
 [pybind11 built-in conversions](https://pybind11.readthedocs.io/en/stable/advanced/cast/overview.html#conversion-table)
 [pybind11 built-in C++ to Python exception translation](https://pybind11.readthedocs.io/en/stable/advanced/exceptions.html)
 
+[CMake single-configurations and multi-configurations](https://stackoverflow.com/questions/24460486/cmake-build-type-is-not-being-used-in-cmakelists-txt)
+
+
 
 ## Rust
 

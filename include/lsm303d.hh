@@ -70,7 +70,7 @@ inline constexpr std::byte ACT_DUR {0x3F};
 inline constexpr std::byte MULTI_BYTES {0x80};
 
 
-class LSM303D : public LinuxI2C {
+class LSM303D : private LinuxI2C {
 public:
    LSM303D(uint8_t adapter_id, std::byte tgt_addr)
       : LinuxI2C{adapter_id, tgt_addr} {
@@ -79,16 +79,16 @@ public:
    }
 
    // Unit: degree Celsius
-   [[nodiscard]] float
+   [[nodiscard]] double
    temperature_rd() {
       bytearray<2> bytes;
       LinuxI2C::read(TEMP_OUT_L | MULTI_BYTES, bytes);
       // See the datasheet table 4
-      return static_cast<float>(std::bit_cast<int16_t>(bytes)) / 8;
+      return static_cast<double>(std::bit_cast<int16_t>(bytes)) / 8;
    }
 
    // Unit: standard acceleration due to gravity
-   [[nodiscard]] std::array<float, 3>&
+   [[nodiscard]] std::array<double, 3>&
    accelerometer_rd() {
       acceleration_fullscale_update();
 
@@ -103,7 +103,7 @@ public:
        * redundant call of begin iterator of the destination
       */
       std::ranges::transform(unscaled, acceleration.begin(), [&](int16_t e) {
-         return static_cast<float>(e)
+         return static_cast<double>(e)
             / std::numeric_limits<int16_t>::max()
             * acceleration_fullscale;
       });
@@ -112,7 +112,7 @@ public:
    }
 
    // Unit: gauss
-   [[nodiscard]] std::array<float, 3>&
+   [[nodiscard]] std::array<double, 3>&
    magnetometer_rd() {
       magnetic_fullscale_update();
 
@@ -122,7 +122,7 @@ public:
       auto unscaled = std::bit_cast<std::array<int16_t, 3>>(bytes);
 
       std::ranges::transform(unscaled, magnetic.begin(), [&](int16_t e) {
-         return static_cast<float>(e)
+         return static_cast<double>(e)
             / std::numeric_limits<int16_t>::max()
             * magnetic_fullscale;
       });
@@ -214,6 +214,6 @@ protected:
       }
    }
 
-   std::array<float, 3> acceleration;
-   std::array<float, 3> magnetic;
+   std::array<double, 3> acceleration;
+   std::array<double, 3> magnetic;
 };

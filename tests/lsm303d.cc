@@ -15,12 +15,15 @@ auto main() -> int {
    lsm303d.control6_wr(byte{0b0'00'00000});
    lsm303d.control7_wr(byte{0b00'0'0'0'0'00});
 
-   float temperature;
-   array<float, 3> acceleration, magnetic;
+   double temperature;
+   array<double, 3> acceleration, magnetic;
    for (;;) {
       acceleration = lsm303d.accelerometer_rd();
       magnetic = lsm303d.magnetometer_rd();
       temperature = lsm303d.temperature_rd();
+
+      // Display all the precision of double
+      cout.precision(std::numeric_limits<double>::max_digits10);
 
       cout << "Acceleration: ";
       for (const auto &e : acceleration) {

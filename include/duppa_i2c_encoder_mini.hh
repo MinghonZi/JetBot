@@ -2,7 +2,7 @@
 
 #include <linux_i2c.hh>
 
-/* Encoder register definition */
+/* Encoder register definitions */
 inline constexpr std::byte REG_GCONF {0x00};
 inline constexpr std::byte REG_INTCONF {0x01};
 inline constexpr std::byte REG_ESTATUS {0x02};
@@ -29,7 +29,7 @@ inline constexpr std::byte REG_VERSION {0x71};
 inline constexpr std::byte REG_I2CADDRESS {0x72};
 inline constexpr std::byte REG_EEPROMS {0x81};
 
-/* Encoder configuration bit. Use with GCONF */
+/* Encoder configuration bits. Use with GCONF */
 inline constexpr std::byte WRAP_ENABLE  {0x01};
 inline constexpr std::byte WRAP_DISABLE {0x00};
 inline constexpr std::byte DIRE_LEFT  {0x02};

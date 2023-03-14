@@ -48,8 +48,10 @@ public:
       close(fd_);
    }
 
-   void
-   read(std::byte reg, std::byte &byte) {
+   [[nodiscard]] std::byte
+   read(std::byte reg) {
+      std::byte byte;
+
       i2c_msg msgs[2] {{
          .addr  = static_cast<__u16>(tgt_addr_),
          .flags = 0, // write
@@ -66,10 +68,13 @@ public:
          .nmsgs = 2
       };
 
+      // TODO: DRY?
       int code = ioctl(fd_, I2C_RDWR, &data);
       // If succeed, ioctl returns nmsgs (2 in this case) being transferred
       if (code < 0) [[unlikely]]
          throw std::runtime_error("I2C fault code: " + std::to_string(code));
+
+      return byte;
    }
 
    void

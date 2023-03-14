@@ -353,9 +353,12 @@ class TemperatureAdapter(Adapter):
         return 0
 
     def _decode(self, value):
+        # print(f"{value:16b}")
         output = ((value & 0xFF00) >> 8) | ((value & 0x000F) << 8)
+        # print(f"{output:16b}")
         if output & (1 << 11):
-            output = (output & ((1 << 12) - 1)) - (1 << 12)
+            output = (output & 0xFFF) - (1 << 12)
+        # print(f"{output:16b}")
         return output / 8.0
 
 
@@ -779,7 +782,10 @@ class LSM303D:
 
 ###############################################################################
 
-lsm = LSM303D(0x1d)  # Change to 0x1e if you have soldered the address jumper
+import smbus2
+from time import sleep
+
+lsm = LSM303D(0x1d, i2c_dev=smbus2.SMBus(0))  # Change to 0x1e if you have soldered the address jumper
 
 while True:
     xyz = lsm.accelerometer()
@@ -787,3 +793,7 @@ while True:
 
     xyz = lsm.magnetometer()
     print(("{:+06.2f} : {:+06.2f} : {:+06.2f}").format(*xyz))
+
+    print(f"Temperature: {lsm.temperature()}\n")
+
+    sleep(0.5)

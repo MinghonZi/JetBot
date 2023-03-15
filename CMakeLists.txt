@@ -13,6 +13,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)  # ensure standard is supported
 set(CMAKE_CXX_EXTENSIONS OFF)  # keep compiler extensions off
 
+# Initialise Git submodules
 find_package(Git QUIET)
 if(GIT_FOUND AND EXISTS ${PROJECT_SOURCE_DIR}/.git)
     message(STATUS "Initialise submodules")
@@ -25,6 +26,7 @@ if(GIT_FOUND AND EXISTS ${PROJECT_SOURCE_DIR}/.git)
     endif()
 endif()
 
+# Ensure Python and pybind11 existence
 find_package(Python 3.7 COMPONENTS Interpreter Development REQUIRED)
 set(PYBIND11_PATH ${CMAKE_SOURCE_DIR}/extern/pybind11)
 if(NOT EXISTS ${PYBIND11_PATH}/CMakeLists.txt)

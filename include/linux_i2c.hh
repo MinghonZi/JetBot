@@ -48,35 +48,6 @@ public:
       close(fd_);
    }
 
-   [[nodiscard]] std::byte
-   read(std::byte reg) {
-      std::byte byte;
-
-      i2c_msg msgs[2] {{
-         .addr  = static_cast<__u16>(tgt_addr_),
-         .flags = 0, // write
-         .len   = 1, // one byte
-         .buf   = std::bit_cast<__u8*>(&reg)
-      }, {
-         .addr  = static_cast<__u16>(tgt_addr_),
-         .flags = I2C_M_RD, // read
-         .len   = 1, // one byte
-         .buf   = std::bit_cast<__u8*>(&byte)
-      }};
-      i2c_rdwr_ioctl_data data {
-         .msgs  = msgs,
-         .nmsgs = 2
-      };
-
-      // TODO: DRY?
-      int code = ioctl(fd_, I2C_RDWR, &data);
-      // If succeed, ioctl returns nmsgs (2 in this case) being transferred
-      if (code < 0) [[unlikely]]
-         throw std::runtime_error("I2C fault code: " + std::to_string(code));
-
-      return byte;
-   }
-
    void
    read(std::byte reg, std::span<std::byte> bytes) {
       i2c_msg msgs[2] {{
@@ -86,7 +57,7 @@ public:
          .buf   = std::bit_cast<__u8*>(&reg)
       }, {
          .addr  = static_cast<__u16>(tgt_addr_),
-         .flags = I2C_M_RD,
+         .flags = I2C_M_RD, // read
          .len   = static_cast<__u16>(bytes.size()),
          .buf   = std::bit_cast<__u8*>(bytes.data())
       }};
@@ -96,31 +67,17 @@ public:
       };
 
       int code = ioctl(fd_, I2C_RDWR, &data);
+      // If succeed, ioctl returns nmsgs (2 in this case) being transferred
       if (code < 0) [[unlikely]]
-         throw std::runtime_error("I2C fault code: " + std::to_string(code));
+         throw std::runtime_error(
+            "I2C read failed with fault code: " + std::to_string(code));
    }
 
-   void
-   write(std::byte reg, std::byte byte) {
-      // Construct buffer as || reg | one byte ||
-      bytearray<sizeof(reg) + sizeof(byte)> buf;
-      std::memcpy(buf.data(), &reg, sizeof(reg));
-      std::memcpy(buf.data() + sizeof(reg), &byte, sizeof(byte));
-
-      i2c_msg msgs[1] {{
-         .addr  = static_cast<__u16>(tgt_addr_),
-         .flags = 0, // write
-         .len   = static_cast<__u16>(buf.size()),
-         .buf   = std::bit_cast<__u8*>(buf.data())
-      }};
-      i2c_rdwr_ioctl_data data {
-         .msgs  = msgs,
-         .nmsgs = 1
-      };
-
-      int code = ioctl(fd_, I2C_RDWR, &data);
-      if (code < 0) [[unlikely]]
-         throw std::runtime_error("I2C fault code: " + std::to_string(code));         
+   [[nodiscard]] std::byte
+   read(std::byte reg) {
+      std::byte byte;
+      read(reg, std::span{&byte, 1});
+      return byte;
    }
 
    void
@@ -143,7 +100,13 @@ public:
 
       int code = ioctl(fd_, I2C_RDWR, &data);
       if (code < 0) [[unlikely]]
-         throw std::runtime_error("I2C fault code: " + std::to_string(code));
+         throw std::runtime_error(
+            "I2C write failed with fault code: " + std::to_string(code));
+   }
+
+   void
+   write(std::byte reg, std::byte byte) {
+      write(reg, std::span{&byte, 1});
    }
 
 protected:

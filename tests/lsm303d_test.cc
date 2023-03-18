@@ -37,7 +37,7 @@ auto main() -> int {
       }
       cout << endl;
 
-      cout << "Temperature: " << temperature << endl << endl;
+      cout << "Temperature variation: " << temperature << endl << endl;
 
       usleep(500000);
    }

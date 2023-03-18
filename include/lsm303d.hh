@@ -78,7 +78,15 @@ public:
       magnetic_fullscale_update();
    }
 
-   // Unit: degree Celsius
+   /**
+    * The temperature sensor can be used only to measure temperature
+    * variations. It isn't suitable to return absolute temperatures measures.
+    * The value represents difference respect to a reference not specified
+    * value.
+    * https://community.st.com/s/question/0D50X00009XkZbESAV/lsm303d-temperature-format
+    * 
+    * Unit: degree Celsius
+   */
    [[nodiscard]] double
    temperature_rd() {
       bytearray<2> bytes;
@@ -168,6 +176,51 @@ public:
    }
 
    // FIXME: Non exhaustive
+
+   /**
+    * Convenience Functions for Pybind11
+    * TODO: pybind11 doesn't have built-in conversion for std::byte
+    */
+
+   LSM303D(uint8_t adapter_id, uint8_t tgt_addr)
+      : LSM303D{adapter_id, std::byte{tgt_addr}} {}
+
+   void
+   control1_wr(uint8_t byte) {
+      control1_wr(std::byte{byte});
+   }
+
+   void
+   control2_wr(uint8_t byte) {
+      control2_wr(std::byte{byte});
+      acceleration_fullscale_update();
+   }
+
+   void
+   control3_wr(uint8_t byte) {
+      control3_wr(std::byte{byte});
+   }
+
+   void
+   control4_wr(uint8_t byte) {
+      control4_wr(std::byte{byte});
+   }
+
+   void
+   control5_wr(uint8_t byte) {
+      control5_wr(std::byte{byte});
+   }
+
+   void
+   control6_wr(uint8_t byte) {
+      control6_wr(std::byte{byte});
+      magnetic_fullscale_update();
+   }
+
+   void
+   control7_wr(uint8_t byte) {
+      control7_wr(std::byte{byte});
+   }
 
 protected:
    int acceleration_fullscale;

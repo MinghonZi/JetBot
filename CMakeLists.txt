@@ -13,6 +13,8 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)  # ensure standard is supported
 set(CMAKE_CXX_EXTENSIONS OFF)  # keep compiler extensions off
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # Initialise Git submodules
 find_package(Git QUIET)
 if(GIT_FOUND AND EXISTS ${PROJECT_SOURCE_DIR}/.git)

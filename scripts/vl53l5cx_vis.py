@@ -11,7 +11,7 @@ def init():
     vl53l5cx.set_resolution(RESOLUTION_8X8)
     vl53l5cx.start_ranging()
 
-def viz(frame):
+def vis(frame):
     if not vl53l5cx.data_ready():
         return
     data = vl53l5cx.get_data()
@@ -28,7 +28,7 @@ def viz(frame):
 
 fig = plt.figure()
 ani = FuncAnimation(fig=fig,
-    func=viz,
+    func=vis,
     init_func=init,
     interval=67,  # 8x8 resolution at 15 Hz ~= 67 ms
     cache_frame_data=False,

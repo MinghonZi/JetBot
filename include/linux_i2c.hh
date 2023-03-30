@@ -32,7 +32,7 @@ using bytearray = std::array<std::byte, S>;
 */
 class LinuxI2C {
 public:
-   LinuxI2C(uint8_t adapter_id, std::byte tgt_addr)
+   LinuxI2C(uint8_t adapter_id, std::byte tgt_addr) // 7-bit addressing
       : adapter_id_{adapter_id}, tgt_addr_{tgt_addr} {
       fd_ = open_i2c_bus(adapter_id_);
    }
@@ -49,12 +49,12 @@ public:
    }
 
    void
-   read(std::byte reg, std::span<std::byte> bytes) {
+   read(std::span<std::byte> reg, std::span<std::byte> bytes) {
       i2c_msg msgs[2] {{
          .addr  = static_cast<__u16>(tgt_addr_),
          .flags = 0, // write
-         .len   = 1, // one byte
-         .buf   = std::bit_cast<__u8*>(&reg)
+         .len   = static_cast<__u16>(reg.size()),
+         .buf   = std::bit_cast<__u8*>(reg.data())
       }, {
          .addr  = static_cast<__u16>(tgt_addr_),
          .flags = I2C_M_RD, // read
@@ -73,19 +73,12 @@ public:
             "I2C read failed with fault code: " + std::to_string(code));
    }
 
-   [[nodiscard]] std::byte
-   read(std::byte reg) {
-      std::byte byte;
-      read(reg, std::span{&byte, 1});
-      return byte;
-   }
-
    void
-   write(std::byte reg, std::span<std::byte const> bytes) {
+   write(std::span<std::byte> reg, std::span<std::byte const> bytes) {
       // Construct buffer as || reg | bytes ||
-      std::vector<std::byte> buf(sizeof(reg) + bytes.size());
-      std::memcpy(buf.data(), &reg, sizeof(reg));
-      std::memcpy(buf.data() + sizeof(reg), bytes.data(), bytes.size());
+      std::vector<std::byte> buf(reg.size() + bytes.size());
+      std::memcpy(buf.data(), reg.data(), reg.size());
+      std::memcpy(buf.data() + reg.size(), bytes.data(), bytes.size());
 
       i2c_msg msgs[1] {{
          .addr  = static_cast<__u16>(tgt_addr_),
@@ -104,9 +97,46 @@ public:
             "I2C write failed with fault code: " + std::to_string(code));
    }
 
+   /* Convenience Functions */
+
+   // One-byte register address
+   void
+   read(std::byte reg, std::span<std::byte> bytes) {
+      read(std::span{&reg, 1}, bytes);
+   }
+
+   // One-byte value
+   [[nodiscard]] std::byte
+   read(std::span<std::byte> reg) {
+      std::byte byte;
+      read(reg, std::span{&byte, 1});
+      return byte;
+   }
+
+   // One-byte register address and one-byte value
+   [[nodiscard]] std::byte
+   read(std::byte reg) {
+      std::byte byte;
+      read(std::span{&reg, 1}, std::span{&byte, 1});
+      return byte;
+   }
+
+   // One-byte register address
+   void
+   write(std::byte reg, std::span<std::byte const> bytes) {
+      write(std::span{&reg, 1}, bytes);
+   }
+
+   // One-byte value
+   void
+   write(std::span<std::byte> reg, std::byte byte) {
+      write(reg, std::span{&byte, 1});
+   }
+
+   // One-byte register address and one-byte value
    void
    write(std::byte reg, std::byte byte) {
-      write(reg, std::span{&byte, 1});
+      write(std::span{&reg, 1}, std::span{&byte, 1});
    }
 
 protected:

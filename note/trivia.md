@@ -1,42 +1,42 @@
-## TODO
-
-In Linux kernel, what is
-- file descriptor
-- https://en.wikipedia.org/wiki/User_space_and_kernel_space
-- /dev interface
-- character device file
-    - major and minor device number
-- https://en.wikipedia.org/wiki/Sysfs
-
-How to access *linux character device* within the container?
-
-[pywrapcc](https://github.com/google/pywrapcc)
-
-
-
-## Learning Resources
-
-[The Linux man-pages project](https://www.kernel.org/doc/man-pages/)
-
-[Linux Kernel Labs / Character device drivers](https://linux-kernel-labs.github.io/refs/heads/master/labs/device_drivers.html)
-
-[Embedded Linux Wiki](https://elinux.org)
+# Learning Resources
 
 [嵌入式系统及物联网应用](https://theembeddedsystem.readthedocs.io/en/latest/index.html)
 
 [Low Level Learning](https://www.youtube.com/@LowLevelLearning)
 
-[Linux Serial Ports Using C/C++](https://blog.mbedded.ninja/programming/operating-systems/linux/linux-serial-ports-using-c-cpp/)
-
-[Practical Guide to Bare Metal C++](https://arobenko.github.io/bare_metal_cpp/)
 
 
+# ROS
 
-## Communication Protocols
+[PointCloud2 explaination](https://youtu.be/lTami8Igc3c)
 
-[`ioctl` based interfaces](https://docs.kernel.org/driver-api/ioctl.html)
+Publishing transform data
+`ros2 run tf2_ros static_transform_publisher 0 0 0.2 0 0 0 base_link camera_link`
+Receiving transform data
+`ros2 run tf2_ros tf2_echo base_link camera_link`
 
-[Linux I2C device interface](https://docs.kernel.org/i2c/dev-interface.html)
+ros2 pkg prefix cartographer_ros
+
+ros2 run robot_state_publisher robot_state_publisher --ros-args -p robot_description:="$( xacro /opt/ros/humble/share/cartographer_ros/urdf/backpack_3d.urdf )"
+
+ros2 run tf2_ros static_transform_publisher 0 0 0 -1.57 0 -1.57 base_link vl53l5cx_link
+ros2 run tf2_ros static_transform_publisher 0 0 0 1.57 0 -1.57 base_link mpu6050_link
+
+
+
+# Communication Protocols
+
+[libgpio](https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git/about/)
+
+An [Introduction](https://www.beyondlogic.org/an-introduction-to-chardev-gpio-and-libgpiod-on-the-raspberry-pi/) to chardev GPIO and Libgpiod on the Raspberry PI
+
+[spidev](https://elixir.bootlin.com/linux/latest/source/drivers/spi/spidev.c)
+
+## I2C/SMBus
+
+[Implementing I2C device drivers in userspace](https://docs.kernel.org/i2c/dev-interface.html)
+
+[SMBus](https://www.kernel.org/doc/Documentation/i2c/smbus-protocol)
 
 [Linux i2c Subsystem](https://i2c.wiki.kernel.org)
 - i2c-tools > libi2c
@@ -47,29 +47,13 @@ How to access *linux character device* within the container?
 
 [I2C addresses](https://learn.adafruit.com/i2c-addresses/the-list)
 
-[Python I2CEncoderMiniLib](https://github.com/Fattoresaimon/I2CEncoderMini/blob/1ce083be9defe9f0fb43c41e00b1812b8beac005/Python%20Raspberry%20Library/Source/i2cEncoderMiniLib.py)
-
-[SMBus](https://www.kernel.org/doc/Documentation/i2c/smbus-protocol)
-
 [Three major methods of communicating with i2c devices from userspace](https://stackoverflow.com/a/38382649/20015297)
 
 [I2C/SMBUS fault codes](https://www.kernel.org/doc/html/next/i2c/fault-codes.html)
 
-[spidev](https://elixir.bootlin.com/linux/latest/source/drivers/spi/spidev.c)
-
-[libgpio](https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git/about/)
-
-An [Introduction](https://www.beyondlogic.org/an-introduction-to-chardev-gpio-and-libgpiod-on-the-raspberry-pi/) to chardev GPIO and Libgpiod on the Raspberry PI
 
 
-
-## C/C++
-
-[Modern C++ Tutorial](https://github.com/changkun/modern-cpp-tutorial)
-
-[Modern C++ Features](https://github.com/AnthonyCalandra/modern-cpp-features)
-
-[An Introduction to Modern CMake by Henry Schreiner](https://cliutils.gitlab.io/modern-cmake/)
+# C/C++
 
 [Awesome C++](https://github.com/fffaraz/awesome-cpp)
 
@@ -129,35 +113,7 @@ Balance `new` with `delete`, `new[]` with `delete[]`, and `malloc` with `free`. 
 
 
 
-## Rust
-
-[Rust Embedded](https://github.com/rust-embedded)
-
-[Embedded Rust documentation](https://docs.rust-embedded.org/)
-
-[Hardware Abstraction Layer (HAL) for embedded systems](https://github.com/rust-embedded/embedded-hal/)
-
-[The Book](https://doc.rust-lang.org/book/)
-
-[The Unstable Book](https://doc.rust-lang.org/beta/unstable-book/the-unstable-book.html)
-
-[The Cargo Book](https://doc.rust-lang.org/cargo/)
-
-[A Comprehensive list of all Rust learning material](https://www.reddit.com/r/rust/comments/1143yar/a_comprehensive_list_of_all_rust_learning_material/)
-
-
-
-## Algos
-
-### SLAM
-
-https://github.com/cartographer-project/cartographer
-
-https://github.com/introlab/rtabmap
-
-
-
-## Misc
+# Misc
 
 [Jetson Nano](https://elinux.org/Jetson_Nano)
 
@@ -182,7 +138,7 @@ Differential drive kinematics
 
 [ImportError: dynamic module does not define module export function (PyInit_python_example)](https://github.com/pybind/python_example/issues/99#issuecomment-1065104070)
 
-### Compling OpenCV
+## Compling OpenCV
 
 [A blog](https://www.simonwenkel.com/notes/software_libraries/opencv/compiling-opencv.html)
 

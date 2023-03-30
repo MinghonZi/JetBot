@@ -1,7 +1,7 @@
 # https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [package]
-name = "object_detection"
+name = "objdetect"
 version = "0.0.0"
 edition = "2021"
 

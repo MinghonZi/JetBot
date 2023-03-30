@@ -3,37 +3,44 @@
 
     "build": {
         "dockerfile": "./Dockerfile",
-        "context": "..",
-        "target": "base"
+        "context": ".."
     },
 
     "runArgs": [
-        "--gpus", "all",
-        "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined"  // enables using a ptrace-based debugger like C++, Go, and Rust
+        "--privileged",
+        "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined"  // enables using a ptrace-based debugger
     ],
 
     "containerEnv": {
-        "GIT_EDITOR": "code --wait",
-        "NVIDIA_VISIBLE_DEVICES": "all",
-        "NVIDIA_DRIVER_CAPABILITIES": "all"
+        "EDITOR": "code --wait",
+        "GIT_EDITOR": "${containerEnv:EDITOR}"
     },
 
-    "remoteUser": "minghongxu",
-    "workspaceMount": "source=${localWorkspaceFolder},target=/home/minghongxu/ws/src,type=bind",
-    "workspaceFolder": "/home/minghongxu/ws/src",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/ws,type=bind",
+    "workspaceFolder": "/ws",
 
-    // "postCreateCommand": "./.devcontainer/postCreateCommand.sh",
+    // "postCreateCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}",
+    "postStartCommand": "nohup bash -c 'ros2 launch foxglove_bridge foxglove_bridge_launch.xml port:=33000 &'",
+
+    "forwardPorts": [
+        33000
+    ],
 
     "customizations": {
         "vscode": {
             "extensions": [
                 "ms-azuretools.vscode-docker",
+                "ms-python.vscode-pylance", // https://github.com/microsoft/vscode-python/issues/18073
+                "llvm-vs-code-extensions.vscode-clangd",
+                "twxs.cmake",
                 "rust-lang.rust-analyzer",
-                "vadimcn.vscode-lldb",
                 "tamasfe.even-better-toml",
-                "serayuzgur.crates"
+                "serayuzgur.crates",
+                "vadimcn.vscode-lldb",
+                "mutantdino.resourcemonitor"
             ],
             "settings": {
+                "clangd.path": "/usr/bin/clangd-15",
                 "files.watcherExclude": {
                     "**/target/**": true
                 },

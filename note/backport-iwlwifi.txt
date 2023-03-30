@@ -1,0 +1,81 @@
+ifconfig
+lsusb
+ifconfig
+sudo dmesg
+sudo dmesg | grep "*intel*"
+git clone git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
+sudo cp linux-firmware/iwlwifi-9260* /lib/firmware/
+sudo reboot
+ifconfig
+sudo dmesg | grep -i wifi
+lshw -C
+lshw -C network
+ls
+cd linux-firmware/
+ls
+cd ..
+git clone https://git.kernel.org/pub/scm/linux/kernel/git/iwlwifi/backport-iwlwifi.git
+cd backport-iwlwifi
+git checkout release/core52
+make defconfig-iwlwifi-public
+sudo make defconfig-iwlwifi-public
+make -j4
+sudo make install
+sudo reboot
+ifconfig
+sudo nmcli con add type wifi con-name "eduroam" ifname wlan0 ssid "eduroam" wifi-sec.key-mgmt wpa-eap 802-1x.identity "exampleemail@brandeis.edu" 802-1x.password "examplepassword123" 802-1x.system-ca-certs yes 802-1x.eap "peap" 802-1x.phase2-auth mschapv2
+cd /lib/firmware/
+ls
+ls -la *9260*
+sudo rm iwlwifi-9260-th-b0-jf-b0-34.ucode 
+sudo rm iwlwifi-9260-th-b0-jf-b0-38.ucode 
+sudo rm iwlwifi-9260-th-b0-jf-b0-46.ucode 
+sudo reboot
+ifconfig
+ifconfig wlan0
+nmcli d
+cd backport-iwlwifi/
+ls
+sudo make clean
+sudo make defconfig-iwlwifi-public
+make -j4
+sudo make install
+sudo reboot
+modprobe --show-depends iwlwifi
+ifconfig
+sudo systemctl disable pioled_stats.service
+python3 -m pip install --upgrade pip setuptools wheel
+sudo pip3 install netifaces
+mkdir jetbot-utils
+cd jetbot-utils/
+ls
+python3 stats.py 
+sudo pip3 install netifaces
+sudo reboot
+cd jetbot-utils/
+ls
+python3 stats.py 
+pip install netifaces
+/usr/bin/python3 -m pip install --upgrade pip
+python3 stats.py 
+cd ..
+ls
+sudo python -m pip install --upgrade pip setuptools wheel
+sudo python3 -m pip install --upgrade pip setuptools wheel
+sudo pip install Adafruit-SSD1306
+sudo pip3 install Adafruit-SSD1306
+python3 --version
+ls
+cd jetbot-utils/
+ls
+python3 stats.py 
+python3.7 stats.py 
+nano stats.service 
+sudo cp stats.service /etc/system/system
+sudo cp stats.service /etc/systemd/system
+cd /etc/systemd/system
+sudo systemctl enable stats.service
+sudo systemctl start stats.service
+sudo systemctl status stats.service
+sudo reboot
+ifconfig

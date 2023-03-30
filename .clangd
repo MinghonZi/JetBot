@@ -1,0 +1,5 @@
+If:
+  PathMatch: [include/.*, pywrapcc/.*, tests/.*]
+
+CompileFlags:
+  CompilationDatabase: debug/

@@ -1,59 +1,66 @@
 # https://docs.docker.com/engine/reference/builder/#syntax
 
-FROM osrf/ros:humble-desktop-jammy AS base
+FROM ros:humble-ros-base-jammy
 
-SHELL ["/bin/bash", "-c"]
+RUN apt-get update && apt-get install --yes --no-install-recommends \
+		bash-completion \
+		curl \
+		ninja-build \
+        python3-pip \
+        ros-$ROS_DISTRO-foxglove-bridge \
+        ros-$ROS_DISTRO-cartographer-ros \
+		wget \
+    && rm -rf /var/lib/apt/lists/*
 
-# Create the user
-ARG USERNAME=minghongxu
-ARG USER_UID=1000
-ARG USER_GID=$USER_UID
-RUN <<-EOF
-	groupadd --gid $USER_GID $USERNAME
-	useradd --shell /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME
-	apt-get update
-	apt-get install -y sudo
-	echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME
-	chmod 0440 /etc/sudoers.d/$USERNAME
-	rm -rf /var/lib/apt/lists/*
-EOF
-# Set the default user
-USER $USERNAME
+# Enable bash completion for root
+RUN sed -i '97,99 {s/^#//}' ~/.bashrc
 
-# Setup ROS env and enable colcon argcomplete feature and colcon_cd on every Bash
-RUN <<EOF
-printf '\n# Setup ROS env\n' >> $HOME/.bashrc
-echo '. /opt/ros/$ROS_DISTRO/setup.bash' >> $HOME/.bashrc
-printf '\n# Enable argcomplete of colcon\n' >> $HOME/.bashrc
-echo '. /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash' >> $HOME/.bashrc
-printf '\n# Enable colcon_cd\n' >> $HOME/.bashrc
-echo '. /usr/share/colcon_cd/function/colcon_cd.sh' >> $HOME/.bashrc
-echo 'export _colcon_cd_root=/opt/ros/$ROS_DISTRO/' >> $HOME/.bashrc
-printf '\n' >> $HOME/.bashrc
-EOF
+RUN echo 'deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy main' | sudo tee /etc/apt/sources.list.d/llvm.list && \
+	echo 'deb-src http://apt.llvm.org/jammy/ llvm-toolchain-jammy main' | sudo tee /etc/apt/sources.list.d/llvm.list && \
+	wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | sudo tee /etc/apt/trusted.gpg.d/apt.llvm.org.asc && \
+	apt-get update && apt-get install --yes --no-install-recommends \
+        # clang-15 \
+		clangd-15 \
+		# clang-format-15 \
+		lldb-15 \
+    && rm -rf /var/lib/apt/lists/*
 
-# Make a colcon workspace
-RUN <<EOF
-mkdir -p $HOME/ws/src
-echo '# Setup colcon workspace' >> $HOME/.bashrc
-echo '[ -f $HOME/ws/install/local_setup.bash ] && . $HOME/ws/install/local_setup.bash' >> $HOME/.bashrc
-printf '\n' >> $HOME/.bashrc
-EOF
+# Set Clang as default compiler
+# ENV CC clang-15
+# ENV CXX clang++-15
 
 # Get Rust and enable tab completion of rustup and cargo for Bash
 RUN <<-EOF
 	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-	source "$HOME/.cargo/env"
+	. $HOME/.cargo/env
 	mkdir -p $HOME/.local/share/bash-completion/completions
 	rustup completions bash >> $HOME/.local/share/bash-completion/completions/rustup
 	rustup completions bash cargo >> $HOME/.local/share/bash-completion/completions/cargo
 EOF
 
+# Set up Bash env
 RUN <<EOF
-sudo apt-get update
-sudo apt-get install --yes --no-install-recommends \
-	python3-pip \
-	bash-completion \
-	libclang-dev
-sudo rm -rf /var/lib/apt/lists/*
+mkdir -p /ws
+printf '
+# Setup ROS env
+. /opt/ros/$ROS_DISTRO/setup.bash
+
+# Enable argcomplete of colcon
+. /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
+
+# Enable colcon_cd
+. /usr/share/colcon_cd/function/colcon_cd.sh
+export _colcon_cd_root=/opt/ros/$ROS_DISTRO/
+
+# Setup colcon workspace
+[ -f /ws/install/local_setup.bash ] && . /ws/install/local_setup.bash
+
+PROMPT_COMMAND=\047printf "\\n"\047
+PS1=\047\[\\e[0;36m\]\w\\n\[\\e[1;32m\]>>\[\\e[0m\] \047
+' >> $HOME/.bashrc
 EOF
+
+RUN apt-get update && apt-get install --yes --no-install-recommends \
+		# Required by R2R 
+		libclang-dev \
+    && rm -rf /var/lib/apt/lists/*

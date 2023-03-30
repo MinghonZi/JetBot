@@ -111,6 +111,7 @@ Balance `new` with `delete`, `new[]` with `delete[]`, and `malloc` with `free`. 
 
 [CMake single-configurations and multi-configurations](https://stackoverflow.com/questions/24460486/cmake-build-type-is-not-being-used-in-cmakelists-txt)
 
+[`c++` is a standard name of a C++ compiler on a system](https://stackoverflow.com/a/11222582/20015297)
 
 
 # Misc
@@ -137,6 +138,11 @@ Differential drive kinematics
 > hatchling, hatchling, flit, and pdm-pep517 will look for `src/<package-name>` in addition to `<package-name>` without extra configuration. [Source](https://github.com/pypa/packaging-problems/issues/615#issuecomment-1257038564)
 
 [ImportError: dynamic module does not define module export function (PyInit_python_example)](https://github.com/pybind/python_example/issues/99#issuecomment-1065104070)
+
+[`apt-key` is deprecated. What do I do instead of `add-apt-repository`](https://unix.stackexchange.com/questions/717434/apt-key-is-deprecated-what-do-i-do-instead-of-add-apt-repository)
+- `wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | sudo tee /etc/apt/trusted.gpg.d/apt.llvm.org.asc`
+
+[Sensors coordinate systems example](https://github.com/IntelRealSense/librealsense/issues/7568)
 
 ## Compling OpenCV
 

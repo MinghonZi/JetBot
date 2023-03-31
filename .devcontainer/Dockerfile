@@ -5,12 +5,12 @@ FROM ros:humble-ros-base-jammy
 RUN apt-get update && apt-get install --yes --no-install-recommends \
 		bash-completion \
 		curl \
-		ninja-build \
         python3-pip \
         ros-$ROS_DISTRO-foxglove-bridge \
         ros-$ROS_DISTRO-cartographer-ros \
 		wget \
-    && rm -rf /var/lib/apt/lists/*
+ && python3 -m pip install meson ninja \
+ && rm -rf /var/lib/apt/lists/*
 
 # Enable bash completion for root
 RUN sed -i '97,99 {s/^#//}' ~/.bashrc
@@ -23,7 +23,7 @@ RUN echo 'deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy main' | sudo tee /
 		clangd-15 \
 		# clang-format-15 \
 		lldb-15 \
-    && rm -rf /var/lib/apt/lists/*
+ && rm -rf /var/lib/apt/lists/*
 
 # Set Clang as default compiler
 # ENV CC clang-15
@@ -61,6 +61,8 @@ PS1=\047\[\\e[0;36m\]\w\\n\[\\e[1;32m\]>>\[\\e[0m\] \047
 EOF
 
 RUN apt-get update && apt-get install --yes --no-install-recommends \
+		# Speed up compilation
+		ccache \
 		# Required by R2R 
 		libclang-dev \
-    && rm -rf /var/lib/apt/lists/*
+ && rm -rf /var/lib/apt/lists/*

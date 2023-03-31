@@ -1,6 +1,6 @@
 {
     "files.exclude": {
-        "extern/": true,
+        "ext/": true,
         "**/__pycache__/": true,
     },
 

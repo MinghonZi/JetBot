@@ -1,2 +1,0 @@
-pybind11_add_module(duppa_i2c_encoder_mini duppa_i2c_encoder_mini.cc)
-pybind11_add_module(lsm303d lsm303d.cc)

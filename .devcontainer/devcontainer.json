@@ -41,9 +41,17 @@
                 "mutantdino.resourcemonitor"
             ],
             "settings": {
+                "mesonbuild.buildFolder": "meson-build-debug",
+                "mesonbuild.configureOnOpen": true,
                 "clangd.path": "/usr/bin/clangd-15",
                 "files.watcherExclude": {
-                    "**/target/**": true
+                    "**/.git/objects/**": true,
+                    "**/.git/subtree-cache/**": true,
+                    "**/meson-build*/**": true,
+                    "**/target/**": true,
+                    "**/build/**": true,
+                    "**/install/**": true,
+                    "**/log/**": true
                 },
                 // https://github.com/microsoft/vscode-remote-release/issues/1671
                 "terminal.integrated.profiles.linux": {

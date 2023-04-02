@@ -30,6 +30,8 @@ ros2 run tf2_ros static_transform_publisher 0 0 0 1.57 0 -1.57 base_link mpu6050
 
 An [Introduction](https://www.beyondlogic.org/an-introduction-to-chardev-gpio-and-libgpiod-on-the-raspberry-pi/) to chardev GPIO and Libgpiod on the Raspberry PI
 
+[Jetson.GPIO](https://github.com/NVIDIA/jetson-gpio)
+
 [spidev](https://elixir.bootlin.com/linux/latest/source/drivers/spi/spidev.c)
 
 ## I2C/SMBus
@@ -50,6 +52,12 @@ An [Introduction](https://www.beyondlogic.org/an-introduction-to-chardev-gpio-an
 [Three major methods of communicating with i2c devices from userspace](https://stackoverflow.com/a/38382649/20015297)
 
 [I2C/SMBUS fault codes](https://www.kernel.org/doc/html/next/i2c/fault-codes.html)
+
+>VL53L5CX requires a firmware upload on startup, and it's slow. Add a baudrate to the i2c line in /boot/config.txt to speed it up:
+>```
+>dtparam=i2c_arm=on,i2c_arm_baudrate=400000
+>```
+>Note: The default baudrate is 200000 (200KHz) and a typical maximum for most devices is 400000 (400KHz), but you can also use 1000000 (1MHz) if you're just driving VL53L5CX sensors.
 
 
 
@@ -114,9 +122,29 @@ Balance `new` with `delete`, `new[]` with `delete[]`, and `malloc` with `free`. 
 [`c++` is a standard name of a C++ compiler on a system](https://stackoverflow.com/a/11222582/20015297)
 
 
+
+# Build
+[meson](https://brennan.io/2020/05/08/meson/)
+
+[meson-python](https://github.com/mesonbuild/meson-python)
+
+[Scikit Build Proposal](https://iscinumpy.gitlab.io/post/scikit-build-proposal/)
+
+[nanobind](https://nanobind.readthedocs.io/en/latest/index.html)
+
+
+
 # Misc
 
-[Jetson Nano](https://elinux.org/Jetson_Nano)
+[NVIDIA Jetson](https://www.nvidia.com/en-gb/autonomous-machines/embedded-systems/)
+- [Understand orders of magnitude in computer performance](https://kb.iu.edu/d/apeq#performance)
+- [Jetson Nano](https://elinux.org/Jetson_Nano)
+- [Jetson Nano Forum](https://forums.developer.nvidia.com/c/agx-autonomous-machines/jetson-embedded-systems/jetson-nano/76)
+- https://forums.developer.nvidia.com/t/jetson-nano-and-jetson-xavier-announcements/232520
+- [Jetson roadmap](https://developer.nvidia.com/embedded/develop/roadmap)
+- Jetson Nano Next in 2023
+- [Jetson Software Roadmap for 2H-2021 and 2022](https://forums.developer.nvidia.com/t/jetson-software-roadmap-for-2h-2021-and-2022/177721)
+- 
 
 [Connect to Eduroam](https://campus-rover.gitbook.io/lab-notebook/infrastructure/linux_terminal_eduroam_setup#connection-to-eduroam)
 
@@ -154,3 +182,8 @@ Differential drive kinematics
 - `apt install qt5-default`
 
 SIFT and SURF are [non-free algorithms](https://stackoverflow.com/a/64525431/20015297)
+
+## Calc x,y,z coordinates for VL53L5CX data
+https://forum.dronebotworkshop.com/sensors-modules/time-of-flight-tof-vl53l5cx-8x8-pixel-sensor/
+https://community.st.com/s/question/0D53W000015XpcBSAS/vl53l5cx-multizone-sensor-get-xyz-of-points-relative-to-origin
+https://community.st.com/s/question/0D53W00001NTlTzSAL/for-vl53l5cx-what-does-resultsdatadistancemmzonenum-exactly-mean

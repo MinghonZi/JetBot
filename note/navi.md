@@ -11,6 +11,8 @@
 [Linux kernel labs](https://github.com/linux-kernel-labs)
 - [Character device drivers](https://linux-kernel-labs.github.io/refs/heads/master/labs/device_drivers.html)
 
+[A reference implementation](https://github.com/vsergeev/python-periphery/tree/master/periphery) (Python, Lua, C, Java, Dart) of peripheral I/O interface access in userspace Linux
+
 
 
 # C/C++

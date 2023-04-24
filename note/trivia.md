@@ -146,6 +146,8 @@ Balance `new` with `delete`, `new[]` with `delete[]`, and `malloc` with `free`. 
 - [Jetson Software Roadmap for 2H-2021 and 2022](https://forums.developer.nvidia.com/t/jetson-software-roadmap-for-2h-2021-and-2022/177721)
 - 
 
+[Allow non-root access to /ttyUSB](https://askubuntu.com/a/133244/1632699)
+
 [Connect to Eduroam](https://campus-rover.gitbook.io/lab-notebook/infrastructure/linux_terminal_eduroam_setup#connection-to-eduroam)
 
 [Dockerfile "heredoc" notation examples](https://github.com/moby/moby/issues/34423)

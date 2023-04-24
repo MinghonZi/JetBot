@@ -1,3 +1,9 @@
+# Refs
+
+https://github.com/howde-robotics/dragoon_bringup/tree/master/launch/include
+
+
+
 # Linux
 
 [The Linux man-pages project](https://www.kernel.org/doc/man-pages/)
@@ -54,5 +60,7 @@
 https://github.com/cartographer-project/cartographer
 
 https://github.com/introlab/rtabmap
+- http://wiki.ros.org/rtabmap_ros/Tutorials/MappingAndNavigationOnTurtlebot
+- https://github.com/amov-lab/Prometheus/wiki/RTAB-Map建图
 
 https://github.com/SteveMacenski/slam_toolbox

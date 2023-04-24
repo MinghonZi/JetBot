@@ -1,3 +1,8 @@
+- SLAM & Auto-navi
+    - [ ] https://youtu.be/ZaiA3hWaRzE
+    - [ ] https://youtu.be/jkoGkAd0GYk
+    - https://github.com/turtlebot/turtlebot4/tree/humble/turtlebot4_navigation/launch
+
 - [x] ! Rewrite non-ROS compilation process descriptions in Meson to coexist with `colcon`
     - https://answers.ros.org/question/345068/using-colcon-is-there-a-way-to-skip-a-top-cmakeliststxt-and-detect-packages-in-sub-folders/
     - https://answers.ros.org/question/306624/ignore-package-in-colcon-but-not-catkin/?answer=306633#post-id-306633

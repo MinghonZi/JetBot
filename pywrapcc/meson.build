@@ -1,5 +1,7 @@
 py = import('python').find_installation()
 
+# https://github.com/scipy/scipy/blob/main/scipy/meson.build#L93-L119
+# https://github.com/mesonbuild/meson/issues/4677
 pybind11 = declare_dependency(
     include_directories : include_directories('../ext/pybind11/include'),
 )

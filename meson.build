@@ -6,5 +6,6 @@ project('non-ROS programs', 'cpp',
 
 inc = include_directories('inc')
 
+subdir('nodes')
 subdir('pywrapcc')
 subdir('tests')

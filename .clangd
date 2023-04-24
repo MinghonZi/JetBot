@@ -1,5 +1,5 @@
 If:
-  PathMatch: [inc/.*, pywrapcc/.*, tests/.*]
+  PathMatch: [inc/.*, nodes/.*, pywrapcc/.*, tests/.*]
 
 CompileFlags:
   CompilationDatabase: meson-build-debug/

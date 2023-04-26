@@ -4,12 +4,11 @@ FROM ros:humble-ros-base-jammy
 
 RUN apt-get update && apt-get install --yes --no-install-recommends \
         bash-completion \
-        curl \
+        curl wget \
         python3-pip \
         ros-$ROS_DISTRO-foxglove-bridge \
         ros-$ROS_DISTRO-cartographer-ros \
         ros-$ROS_DISTRO-hls-lfcd-lds-driver \
-        wget \
  && python3 -m pip install meson ninja \
  && rm -rf /var/lib/apt/lists/*
 

@@ -33,7 +33,6 @@
                 "ms-python.vscode-pylance", // https://github.com/microsoft/vscode-python/issues/18073
                 "llvm-vs-code-extensions.vscode-clangd",
                 "mesonbuild.mesonbuild",
-                "twxs.cmake",
                 "rust-lang.rust-analyzer",
                 "tamasfe.even-better-toml",
                 "serayuzgur.crates",
@@ -48,10 +47,7 @@
                     "**/.git/objects/**": true,
                     "**/.git/subtree-cache/**": true,
                     "**/meson-build*/**": true,
-                    "**/target/**": true,
-                    "**/build/**": true,
-                    "**/install/**": true,
-                    "**/log/**": true
+                    "**/target/**": true
                 },
                 // https://github.com/microsoft/vscode-remote-release/issues/1671
                 "terminal.integrated.profiles.linux": {

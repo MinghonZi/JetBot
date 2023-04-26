@@ -123,6 +123,38 @@ Balance `new` with `delete`, `new[]` with `delete[]`, and `malloc` with `free`. 
 
 
 
+# IMU
+
+> The lidar is going to give you so much more accuracy than imu or odometry you can likely buy any imu you want (even a 10 dollar one) and have reasonable success. I've found that the slam algorithms mostly need imu/odometry to simply say "the robot is moving" or "the robot is stationary" and all your positional accuracy comes from the lidar and slam algorithm
+
+A [stack](https://github.com/CCNYRoboticsLab/imu_tools) contains IMU-related filters and visualizers.
+
+VectorNav [VN-100](https://vectornav.com/products/detail/vn-100)
+
+Cheap:
+- ICM20948
+- BNO085
+- MPU9250
+
+https://inertiallabs.com/
+https://ceva-dsp.com/
+
+
+
+# Camera
+
+https://gitlab.com/boldhearts/ros2_v4l2_camera
+https://reddit.com/r/robotics/comments/tx48u1/comment/i3jogcy/
+https://e-consystems.com/See3CAM-USB-3-Camera.asp
+
+[Cannot access CSI cam inside a container because the absent of `nvarguscamerasrc`](https://github.com/opendatacam/opendatacam/issues/178)
+
+[Accelerated GStreamer](https://docs.nvidia.com/jetson/archives/r34.1/DeveloperGuide/text/SD/Multimedia/AcceleratedGstreamer.html)
+https://github.com/george-hawkins/pololu-romi-jetbot/blob/master/jetson-nano-gstreamer.md
+https://developer.nvidia.com/embedded/learn/tutorials/first-picture-csi-usb-camera#CameraGuide-CSIcamera.3
+
+
+
 # Build
 [meson](https://brennan.io/2020/05/08/meson/)
 
@@ -144,7 +176,7 @@ Balance `new` with `delete`, `new[]` with `delete[]`, and `malloc` with `free`. 
 - [Jetson roadmap](https://developer.nvidia.com/embedded/develop/roadmap)
 - Jetson Nano Next in 2023
 - [Jetson Software Roadmap for 2H-2021 and 2022](https://forums.developer.nvidia.com/t/jetson-software-roadmap-for-2h-2021-and-2022/177721)
-- 
+- [Jetson Linux Archive](https://developer.nvidia.com/embedded/jetson-linux-archive)
 
 [Allow non-root access to /ttyUSB](https://askubuntu.com/a/133244/1632699)
 

@@ -1,3 +1,6 @@
+- [ ] Implement a VL53L5CX C++ driver with https://github.com/Abstract-Horizon/vl53l5cx_python as a reference
+- [ ] Take the [VL53L5CX ctypes Python library](https://github.com/Abstract-Horizon/vl53l5cx_python/issues/1) as a case study to understand ctypes wrapping 
+
 - SLAM & Auto-navi
     - [ ] Fix `range_data_collator.cc Dropped x earlier points`
         - https://github.com/cartographer-project/cartographer_ros/issues/1303

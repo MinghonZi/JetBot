@@ -285,8 +285,3 @@ Differential drive kinematics
 - `wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | sudo tee /etc/apt/trusted.gpg.d/apt.llvm.org.asc`
 
 [Sensors coordinate systems example](https://github.com/IntelRealSense/librealsense/issues/7568)
-
-## Calc x,y,z coordinates for VL53L5CX data
-https://forum.dronebotworkshop.com/sensors-modules/time-of-flight-tof-vl53l5cx-8x8-pixel-sensor/
-https://community.st.com/s/question/0D53W000015XpcBSAS/vl53l5cx-multizone-sensor-get-xyz-of-points-relative-to-origin
-https://community.st.com/s/question/0D53W00001NTlTzSAL/for-vl53l5cx-what-does-resultsdatadistancemmzonenum-exactly-mean

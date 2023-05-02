@@ -1,11 +1,12 @@
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
+from smbus2 import SMBus
 from matplotlib.animation import FuncAnimation
 from matplotlib.axes import Axes
 from vl53l5cx_ctypes import VL53L5CX, RESOLUTION_8X8
 
-vl53l5cx = VL53L5CX()
+vl53l5cx = VL53L5CX(i2c_dev=SMBus(0))
 
 def init():
     vl53l5cx.set_resolution(RESOLUTION_8X8)
@@ -15,7 +16,7 @@ def vis(frame):
     if not vl53l5cx.data_ready():
         return
     data = vl53l5cx.get_data()
-    distance_mm = np.array(data.distance_mm).reshape((8, 8))
+    distance_mm = np.array(data.distance_mm).reshape(8, 8)
     plt.clf()
     ax: Axes = sns.heatmap(distance_mm,
         vmin=0,

@@ -1,3 +1,5 @@
+-- https://google-cartographer-ros.readthedocs.io/en/latest/configuration.html
+
 include "map_builder.lua"
 include "trajectory_builder.lua"
 

@@ -1,4 +1,6 @@
 - SLAM & Auto-navi
+    - [ ] Fix `range_data_collator.cc Dropped x earlier points`
+        - https://github.com/cartographer-project/cartographer_ros/issues/1303
     - [ ] https://youtu.be/ZaiA3hWaRzE
     - [ ] https://youtu.be/jkoGkAd0GYk
     - https://github.com/turtlebot/turtlebot4/tree/humble/turtlebot4_navigation/launch
@@ -7,7 +9,7 @@
     - https://answers.ros.org/question/345068/using-colcon-is-there-a-way-to-skip-a-top-cmakeliststxt-and-detect-packages-in-sub-folders/
     - https://answers.ros.org/question/306624/ignore-package-in-colcon-but-not-catkin/?answer=306633#post-id-306633
 - [ ] Teleop from foxglove
-- [ ] How to set up clangd
+- [x] How to set up clangd
     - [Allow specifying more than one compile_commands.json file](https://github.com/clangd/clangd/issues/1092)
 - [ ] How to set up ccls
 - [ ] How to set up rust analyzer
@@ -15,8 +17,8 @@
 - [ ] How to set up clang-format
 - [ ] How to use lldb
     - How to use CodeLLDB ext
-- [ ] [Using Ccache](https://autowarefoundation.github.io/autoware-documentation/main/how-to-guides/advanced-usage-of-colcon/)
-- [ ] BNO055 and RPLIDAR
+- [x] [Using Ccache](https://autowarefoundation.github.io/autoware-documentation/main/how-to-guides/advanced-usage-of-colcon/)
+- [x] ~~BNO055~~ An IMU with gyroscope and RPLIDAR
     - https://learn.adafruit.com/adafruit-bno055-absolute-orientation-sensor/overview
     - https://automaticaddison.com/how-to-publish-imu-data-using-ros-and-the-bno055-imu-sensor/
 

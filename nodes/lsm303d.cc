@@ -8,6 +8,7 @@
 
 using namespace std::chrono_literals;
 
+
 class LSM303DPublisher : public rclcpp::Node {
 public:
   LSM303DPublisher()
@@ -37,13 +38,13 @@ private:
     msg.linear_acceleration.y = acceleration[1];
     msg.linear_acceleration.z = acceleration[2];
 
-    // LSM303D doesn't produce an orientation and angular velocity estimate
-    msg.orientation_covariance[0] = -1;
-    msg.angular_velocity_covariance[0] = -1;
     // A zero covariance matrix will be interpreted as "covariance unknown"
     msg.linear_acceleration_covariance[0] = 0;
     msg.linear_acceleration_covariance[4] = 0;
     msg.linear_acceleration_covariance[8] = 0;
+    // LSM303D does not produce an orientation and angular velocity estimate
+    msg.orientation_covariance[0] = -1;
+    msg.angular_velocity_covariance[0] = -1;
 
     publisher_->publish(msg);
   }

@@ -13,3 +13,9 @@ executable('lsm303d',
     include_directories : inc,
     dependencies : [rclcpp, sensor_msgs],
 )
+
+executable('icm20600',
+    sources : 'icm20600.cc',
+    include_directories : inc,
+    dependencies : [rclcpp, sensor_msgs],
+)

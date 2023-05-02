@@ -21,22 +21,16 @@ def generate_launch_description():
     #     ],
     # )
 
-    # static_tf = Node(
-    #     package = "tf2_ros", 
-    #     executable = "static_transform_publisher",
-    #     arguments = ["0", "0", "0", "0", "0", "0", "odom", "laser"],
-    # )
-
-    base_tf_laser = Node(
+    base_tf2_laser = Node(
         package = "tf2_ros", 
         executable = "static_transform_publisher",
         arguments = ["0", "0", "0", "0", "0", "0", "base_link", "laser_link"],
     )
 
-    laser_tf_imu = Node(
+    laser_tf2_imu = Node(
         package = "tf2_ros", 
         executable = "static_transform_publisher",
-        arguments = ["-0.048", "-0.036", "-0.025", "0", "0", "0", "laser_link", "imu_link"],
+        arguments = ["0", "0.01", "-0.01", "0", "3.14", "0", "laser_link", "imu_link"],
     )
 
     hls_lfcd_lds_publisher_node = Node(
@@ -70,8 +64,8 @@ def generate_launch_description():
 
     return LaunchDescription([
         # robot_state_publisher_node,
-        base_tf_laser,
-        laser_tf_imu,
+        base_tf2_laser,
+        laser_tf2_imu,
         hls_lfcd_lds_publisher_node,
         cartographer_node,
         cartographer_occupancy_grid_node,

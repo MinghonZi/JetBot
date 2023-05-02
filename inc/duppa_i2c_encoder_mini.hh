@@ -6,19 +6,19 @@
 inline constexpr std::byte REG_GCONF {0x00};
 inline constexpr std::byte REG_INTCONF {0x01};
 inline constexpr std::byte REG_ESTATUS {0x02};
-inline constexpr std::byte REG_CVALB4 {0x03};  // 32-bit signed int
+inline constexpr std::byte REG_CVALB4 {0x03};  // Big-endian-encoded 32-bit int
 inline constexpr std::byte REG_CVALB3 {0x04};
 inline constexpr std::byte REG_CVALB2 {0x05};
 inline constexpr std::byte REG_CVALB1 {0x06};
-inline constexpr std::byte REG_CMAXB4 {0x07};  // 32-bit signed int
+inline constexpr std::byte REG_CMAXB4 {0x07};  // Big-endian-encoded 32-bit int
 inline constexpr std::byte REG_CMAXB3 {0x08};
 inline constexpr std::byte REG_CMAXB2 {0x09};
 inline constexpr std::byte REG_CMAXB1 {0x0A};
-inline constexpr std::byte REG_CMINB4 {0x0B};  // 32-bit signed int
+inline constexpr std::byte REG_CMINB4 {0x0B};  // Big-endian-encoded 32-bit int
 inline constexpr std::byte REG_CMINB3 {0x0C};
 inline constexpr std::byte REG_CMINB2 {0x0D};
 inline constexpr std::byte REG_CMINB1 {0x0E};
-inline constexpr std::byte REG_ISTEPB4 {0x0F}; // 32-bit signed int
+inline constexpr std::byte REG_ISTEPB4 {0x0F}; // Big-endian-encoded 32-bit int
 inline constexpr std::byte REG_ISTEPB3 {0x10};
 inline constexpr std::byte REG_ISTEPB2 {0x11};
 inline constexpr std::byte REG_ISTEPB1 {0x12};
@@ -41,7 +41,7 @@ inline constexpr std::byte RMOD_X2 {0x08};
 inline constexpr std::byte RMOD_X1 {0x00};
 inline constexpr std::byte RESET {0x80};
 
-/* Encoder status bits and setting. Use with: INTCONF for set and with ESTATUS for read the bits */
+/* Encoder status bits and setting. Use with INTCONF for set and with ESTATUS for read the bits */
 inline constexpr std::byte PUSHR {0x01};
 inline constexpr std::byte PUSHP {0x02};
 inline constexpr std::byte PUSHD {0x04};
@@ -121,6 +121,7 @@ public:
 
 protected:
    // TODO: Replace __builtin_bswap32 with C++23 std::byteswap
+   // TODO: https://commandcenter.blogspot.com/2012/04/byte-order-fallacy.html
 
    [[nodiscard]] static int32_t
    to_int32(bytearray<4> bytes) {

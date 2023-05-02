@@ -166,6 +166,88 @@ https://developer.nvidia.com/embedded/learn/tutorials/first-picture-csi-usb-came
 
 
 
+# [Connect to Eduroam](https://campus-rover.gitbook.io/lab-notebook/infrastructure/linux_terminal_eduroam_setup#connection-to-eduroam)
+
+> Run the following command to get the names of your wireless devices.
+> ```
+> ip link show
+> ```
+> Running this command will list all of your networking devices. You will want to note the name of your wireless networking device, for this tutorial I will assume the wireless device's name will be wlan0 as it is named on the Raspberry Pi 3b+, however you will want to substitute this for the name of your wireless device if your's differs.
+> Next you will run the following commands to connect your machine to eduroam.
+> ```
+> nmcli con add type wifi con-name "eduroam" ifname wlan0 ssid "eduroam" wifi-sec.key-mgmt wpa-eap 802-1x.identity "exampleemail@brandeis.edu" 802-1x.password "examplepassword123" 802-1x.system-ca-certs yes 802-1x.eap "peap" 802-1x.phase2-auth mschapv2
+> ```
+> ```
+> nmcli connection up eduroam --ask
+> ```
+> You may then be prompted to enter in the wifi username and password, however the fields should already be filled in and you will just need to press enter.
+
+
+
+# Build OpenCV
+
+[A blog](https://www.simonwenkel.com/notes/software_libraries/opencv/compiling-opencv.html)
+
+[Compilation flags](https://github.com/opencv/opencv/blob/725e440d278aca07d35a5e8963ef990572b07316/CMakeLists.txt)
+
+[Some required libraries on debian](https://gist.github.com/changx03/b4aa9bb2827217c3a6a7e08365441417)
+- QT: `apt install qt5-default`
+- or GTK: `apt install libgtk-3-dev`
+
+SIFT and SURF are [non-free algorithms](https://stackoverflow.com/a/64525431/20015297)
+
+## opencv-python
+
+Followed "[Manual builds](https://github.com/opencv/opencv-python#manual-builds)" instructions
+
+[2023 April 27] https://github.com/opencv/opencv-python/pull/837
+
+```diff
+cmake_args = (
+    (ci_cmake_generator if is_CI_build else [])
+    + [
+        # skbuild inserts PYTHON_* vars. That doesn't satisfy opencv build scripts in case of Py3
+        "-DPYTHON3_EXECUTABLE=%s" % sys.executable,
+        "-DPYTHON3_INCLUDE_DIR=%s" % python_include_dir,
+        "-DPYTHON3_LIBRARY=%s" % python_lib_path,
+        "-DBUILD_opencv_python3=ON",
+        "-DBUILD_opencv_python2=OFF",
+        # Disable the Java build by default as it is not needed
+        "-DBUILD_opencv_java=%s" % build_java,
+        # Relative dir to install the built module to in the build tree.
+        # The default is generated from sysconfig, we'd rather have a constant for simplicity
+        "-DOPENCV_PYTHON3_INSTALL_PATH=python",
+        # Otherwise, opencv scripts would want to install `.pyd' right into site-packages,
+        # and skbuild bails out on seeing that
+        "-DINSTALL_CREATE_DISTRIB=ON",
+        # See opencv/CMakeLists.txt for options and defaults
+        "-DBUILD_opencv_apps=OFF",
+        "-DBUILD_opencv_freetype=OFF",
+        "-DBUILD_SHARED_LIBS=OFF",
+        "-DBUILD_TESTS=OFF",
+        "-DBUILD_PERF_TESTS=OFF",
+        "-DBUILD_DOCS=OFF",
+        "-DPYTHON3_LIMITED_API=ON",
+        "-DBUILD_OPENEXR=ON",
++       "-DCMAKE_CXX_FLAGS=-I~/.local/lib/python3.7/site-packages/numpy/core/include/",
+    ]
+```
+
+
+
+# Build Pytorch with CUDA support on Jetson
+
+[Official guide](https://forums.developer.nvidia.com/t/pytorch-for-jetson/72048)
+- Followed "Build from Source" of the "Instructions" section
+    - https://github.com/pytorch/pytorch/tree/v1.10.2
+- Applied the pytorch-1.10-jetpack-4.5.1.patch although the JetPack version is 4.6
+- Added `python3.7 -m pip` prefix since the target Python version is 3.7
+- ! Compile with Clang 8 (6 is too old, and 9 is too new; GCC can't compile)
+- Installed the wheel file
+- Built and installed the torchvision ([v0.11.3](https://github.com/pytorch/vision/tree/v0.11.3) is compatible with torch v1.10.2 as per the [matrix](https://github.com/pytorch/vision#installation))
+
+
+
 # Misc
 
 [NVIDIA Jetson](https://www.nvidia.com/en-gb/autonomous-machines/embedded-systems/)
@@ -179,8 +261,6 @@ https://developer.nvidia.com/embedded/learn/tutorials/first-picture-csi-usb-came
 - [Jetson Linux Archive](https://developer.nvidia.com/embedded/jetson-linux-archive)
 
 [Allow non-root access to /ttyUSB](https://askubuntu.com/a/133244/1632699)
-
-[Connect to Eduroam](https://campus-rover.gitbook.io/lab-notebook/infrastructure/linux_terminal_eduroam_setup#connection-to-eduroam)
 
 [Dockerfile "heredoc" notation examples](https://github.com/moby/moby/issues/34423)
 
@@ -205,17 +285,6 @@ Differential drive kinematics
 - `wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | sudo tee /etc/apt/trusted.gpg.d/apt.llvm.org.asc`
 
 [Sensors coordinate systems example](https://github.com/IntelRealSense/librealsense/issues/7568)
-
-## Compling OpenCV
-
-[A blog](https://www.simonwenkel.com/notes/software_libraries/opencv/compiling-opencv.html)
-
-[Compilation flags](https://github.com/opencv/opencv/blob/725e440d278aca07d35a5e8963ef990572b07316/CMakeLists.txt)
-
-[Some required libraries on debian](https://gist.github.com/changx03/b4aa9bb2827217c3a6a7e08365441417)
-- `apt install qt5-default`
-
-SIFT and SURF are [non-free algorithms](https://stackoverflow.com/a/64525431/20015297)
 
 ## Calc x,y,z coordinates for VL53L5CX data
 https://forum.dronebotworkshop.com/sensors-modules/time-of-flight-tof-vl53l5cx-8x8-pixel-sensor/

@@ -1,3 +1,5 @@
+- [ ] Precompiled header
+- [ ] Buck2 can help with multi-language interdependent monorepos
 - [ ] Implement a VL53L5CX C++ driver with https://github.com/Abstract-Horizon/vl53l5cx_python as a reference
 - [ ] Take the [VL53L5CX ctypes Python library](https://github.com/Abstract-Horizon/vl53l5cx_python/issues/1) as a case study to understand ctypes wrapping 
 

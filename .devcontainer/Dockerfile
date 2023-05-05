@@ -1,6 +1,9 @@
-# https://docs.docker.com/engine/reference/builder/#syntax
-
+# syntax=docker/dockerfile:1
 FROM ros:humble-ros-base-jammy
+
+# https://docs.docker.com/engine/reference/builder/#syntax
+# https://docs.docker.com/build/dockerfile/frontend/
+# https://docs.ros.org/en/humble/How-To-Guides/Setup-ROS-2-with-VSCode-and-Docker-Container.html
 
 RUN apt-get update && apt-get install --yes --no-install-recommends \
         bash-completion \

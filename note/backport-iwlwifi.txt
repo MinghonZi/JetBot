@@ -1,3 +1,30 @@
+# On a fresh installed Jetson Linux Tegra R32.7.1
+sudo apt update
+sudo apt install git ca-certificates
+git clone https://git.kernel.org/pub/scm/linux/kernel/git/iwlwifi/backport-iwlwifi.git
+cd backport-iwlwifi/
+git checkout release/core52
+make defconfig-iwlwifi-public
+make -j4
+sudo make install
+sudo reboot
+modprobe --show-depends iwlwifi
+# Output:
+# insmod /lib/modules/4.9.253-tegra/updates/compat/compat.ko
+# insmod /lib/modules/4.9.253-tegra/updates/net/wireless/cfg80211.ko
+# insmod /lib/modules/4.9.253-tegra/updates/drivers/net/wireless/intel/iwlwifi/iwlwifi.ko
+modinfo iwlwifi | grep iwlwifi-92
+# Output:
+# firmware:       iwlwifi-9260-th-b0-jf-b0-46.ucode
+sudo nmcli dev wifi connect MX-WirelessRouter
+sudo nmcli con add type wifi con-name "eduroam" ifname wlan0 ssid "eduroam" wifi-sec.key-mgmt wpa-eap 802-1x.identity "sgmxu9@liverpool.ac.uk" 802-1x.password "083993atLivUni" 802-1x.system-ca-certs yes 802-1x.eap "peap" 802-1x.phase2-auth mschapv2
+cat /etc/group
+sudo usermod -aG dialout $USER
+sudo usermod -aG docker $USER
+sudo apt autoremove
+# Disable L4T update which breaks the backport-iwlwifi driver
+sudo rm /etc/apt/sources.list.d/nvidia-l4t-apt-source.list
+
 ifconfig
 lsusb
 ifconfig

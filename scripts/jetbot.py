@@ -1,7 +1,17 @@
 import atexit
 from typing import Optional
 
+import cv2
 from adafruit_motorkit import MotorKit
+
+cam = cv2.VideoCapture(
+    "nvarguscamerasrc sensor-id=0 !"
+    "video/x-raw(memory:NVMM), width=(int)1280, height=(int)720, framerate=(fraction)30/1 ! "
+    "nvvidconv flip-method=0 ! "
+    "video/x-raw, width=(int)1280, height=(int)720, format=(string)BGRx ! "
+    "videoconvert ! "
+    "video/x-raw, format=(string)BGR ! appsink"
+    , cv2.CAP_GSTREAMER)
 
 _kit = MotorKit()
 

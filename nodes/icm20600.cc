@@ -22,8 +22,8 @@ public:
     icm20600.set_gyro_scale(ICM20600::FS_500_DPS);
 
     publisher_ = this->create_publisher<sensor_msgs::msg::Imu>("/imu", 10);
-    timer_ = this->create_wall_timer(  // 100 Hz -> 10 ms
-      10ms, std::bind(&ICM20600Publisher::publish, this));
+    timer_ = this->create_wall_timer(  // 200 Hz -> 5 ms
+      5ms, std::bind(&ICM20600Publisher::publish, this));
   }
 
 private:

@@ -45,6 +45,8 @@ class Controller(Node):
         self.wheel_separation = self.get_parameter("wheel_separation").value
         self.wheel_radius = self.get_parameter("wheel_radius").value
 
+        # Allowed period (in s) allowed between two successive velocity commands.
+        # After this delay, a zero speed command will be sent to the wheels.
         cmd_vel_timeout = self.get_parameter("cmd_vel_timeout").value
         self.cmd_vel_timeout_timer = self.create_timer(cmd_vel_timeout, self.brake)
 

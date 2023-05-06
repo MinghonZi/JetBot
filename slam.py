@@ -34,11 +34,13 @@ def generate_launch_description():
     )
 
     hls_lfcd_lds_publisher_node = Node(
-        package="hls_lfcd_lds_driver",
-        executable="hlds_laser_publisher",
-        name="hlds_laser_publisher",
-        parameters=[{"port": "/dev/ttyUSB0", "frame_id": "laser_link"}],
-        output="screen"
+        package = "hls_lfcd_lds_driver",
+        executable = "hlds_laser_publisher",
+        name = "hlds_laser_publisher",
+        parameters = [
+            {"port": "/dev/ttyUSB0",
+             "frame_id": "laser_link"}],
+        output = "screen"
     )
 
     cartographer_node = Node(

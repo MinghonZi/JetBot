@@ -10,4 +10,6 @@
     "explorer.fileNesting.patterns": {
         ".gitignore": ".gitattributes, .gitmodules",
     },
+
+    "task.problemMatchers.neverPrompt": true,
 }

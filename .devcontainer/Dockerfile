@@ -3,7 +3,6 @@ FROM ros:humble-ros-base-jammy
 
 # https://docs.docker.com/engine/reference/builder/#syntax
 # https://docs.docker.com/build/dockerfile/frontend/
-# https://docs.ros.org/en/humble/How-To-Guides/Setup-ROS-2-with-VSCode-and-Docker-Container.html
 
 RUN apt-get update && apt-get install --yes --no-install-recommends \
         bash-completion \
@@ -11,7 +10,8 @@ RUN apt-get update && apt-get install --yes --no-install-recommends \
         python3-pip \
         ros-$ROS_DISTRO-foxglove-bridge \
         ros-$ROS_DISTRO-cartographer-ros \
-        ros-$ROS_DISTRO-hls-lfcd-lds-driver \
+        ros-$ROS_DISTRO-navigation2 \
+        ros-$ROS_DISTRO-nav2-bringup \
  && python3 -m pip install meson ninja \
  && rm -rf /var/lib/apt/lists/*
 
@@ -68,4 +68,8 @@ RUN apt-get update && apt-get install --yes --no-install-recommends \
         ccache \
         # Required by R2R 
         libclang-dev \
+        # LiDAR driver
+        ros-$ROS_DISTRO-hls-lfcd-lds-driver \
+    # Motor driver
+ && python3 -m pip install adafruit-circuitpython-motorkit Jetson.GPIO \
  && rm -rf /var/lib/apt/lists/*

@@ -1,3 +1,7 @@
+- Improve workspace setup
+    - https://docs.ros.org/en/humble/How-To-Guides/Setup-ROS-2-with-VSCode-and-Docker-Container.html
+    - https://github.com/athackst/vscode_ros2_workspace
+
 - [ ] Precompiled header
 - [ ] Buck2 can help with multi-language interdependent monorepos
 - [ ] Implement a VL53L5CX C++ driver with https://github.com/Abstract-Horizon/vl53l5cx_python as a reference

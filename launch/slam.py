@@ -1,3 +1,5 @@
+import sys
+
 from launch import LaunchDescription
 from launch_ros.actions import Node
 # from launch_ros.substitutions import FindPackageShare
@@ -40,7 +42,16 @@ def generate_launch_description():
         parameters = [
             {"port": "/dev/ttyUSB0",
              "frame_id": "laser_link"}],
-        output = "screen"
+        output = "screen",
+    )
+
+    imu_node = Node(
+        executable = "meson-build-debug/nodes/icm20600_publisher",
+    )
+
+    controller_node = Node(
+        executable = sys.executable,
+        arguments=['nodes/controller.py'],
     )
 
     cartographer_node = Node(
@@ -48,8 +59,8 @@ def generate_launch_description():
         executable = "cartographer_node",
         output = "screen",
         arguments = [
-            "-configuration_directory", "./cfg/",
-            "-configuration_basename", "2d.lua"],
+            "-configuration_directory", "params/",
+            "-configuration_basename", "2d_slam.lua"],
         remappings = [
             ("/imu", "/imu"),
             ("/scan", "/scan"),
@@ -69,6 +80,8 @@ def generate_launch_description():
         base_tf2_laser,
         laser_tf2_imu,
         hls_lfcd_lds_publisher_node,
+        imu_node,
+        controller_node,
         cartographer_node,
         cartographer_occupancy_grid_node,
     ])

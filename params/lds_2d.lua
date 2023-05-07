@@ -1,5 +1,6 @@
 -- https://google-cartographer-ros.readthedocs.io/en/latest/configuration.html
 -- https://github.com/ROBOTIS-GIT/turtlebot3/blob/master/turtlebot3_slam/config/turtlebot3_lds_2d.lua
+-- https://github.com/jackal/jackal_cartographer_navigation/blob/melodic-devel/config/jackal.lua
 -- ros2 bag record --all
 -- ros2 run cartographer_ros cartographer_rosbag_validate -bag_filename <rosbag2_dir>
 
@@ -28,10 +29,11 @@ options = {
   pose_publish_period_sec = 5e-3,
   trajectory_publish_period_sec = 30e-3,
   rangefinder_sampling_ratio = 1.,
-  odometry_sampling_ratio = 1.,
   fixed_frame_pose_sampling_ratio = 1.,
-  imu_sampling_ratio = 0.025, -- times 200 Hz equals 5 Hz
   landmarks_sampling_ratio = 1.,
+  -- https://github.com/cartographer-project/cartographer/issues/1569#issuecomment-491468305
+  imu_sampling_ratio = 1.,
+  odometry_sampling_ratio = 1.,
 }
 
 MAP_BUILDER.use_trajectory_builder_2d = true

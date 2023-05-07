@@ -1,3 +1,16 @@
+- SLAM & Auto-navi
+    - [ ] Fix `range_data_collator.cc Dropped x earlier points`
+        - https://github.com/cartographer-project/cartographer_ros/issues/1303
+    - [ ] Map drifts
+    - [ ] Nav2 doesn't work
+    - Refs
+        - https://youtu.be/ZaiA3hWaRzE
+        - https://youtu.be/jkoGkAd0GYk
+        - https://github.com/turtlebot/turtlebot4/tree/humble/turtlebot4_navigation/launch
+        - https://answers.ros.org/question/381396/nav2-navigation-while-mapping-setup/
+        - https://github.com/mlherd/navigation2/blob/master/doc/use_cases/navigation_with_slam.md
+        - https://github.com/ros-planning/navigation2/pull/1057
+
 - Improve workspace setup
     - https://docs.ros.org/en/humble/How-To-Guides/Setup-ROS-2-with-VSCode-and-Docker-Container.html
     - https://github.com/athackst/vscode_ros2_workspace
@@ -6,13 +19,6 @@
 - [ ] Buck2 can help with multi-language interdependent monorepos
 - [ ] Implement a VL53L5CX C++ driver with https://github.com/Abstract-Horizon/vl53l5cx_python as a reference
 - [ ] Take the [VL53L5CX ctypes Python library](https://github.com/Abstract-Horizon/vl53l5cx_python/issues/1) as a case study to understand ctypes wrapping 
-
-- SLAM & Auto-navi
-    - [ ] Fix `range_data_collator.cc Dropped x earlier points`
-        - https://github.com/cartographer-project/cartographer_ros/issues/1303
-    - [ ] https://youtu.be/ZaiA3hWaRzE
-    - [ ] https://youtu.be/jkoGkAd0GYk
-    - https://github.com/turtlebot/turtlebot4/tree/humble/turtlebot4_navigation/launch
 
 - [x] ! Rewrite non-ROS compilation process descriptions in Meson to coexist with `colcon`
     - https://answers.ros.org/question/345068/using-colcon-is-there-a-way-to-skip-a-top-cmakeliststxt-and-detect-packages-in-sub-folders/

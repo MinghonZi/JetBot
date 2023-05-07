@@ -4,10 +4,19 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "SLAM",
+            "label": "Cartographer",
             "type": "shell",
             "command": "ros2",
-            "args": ["launch", "${workspaceFolder}/launch/slam.py"],
+            "args": ["launch", "${workspaceFolder}/launch/cartographer.py"],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+        },
+        {
+            "label": "Nav2",
+            "type": "shell",
+            "command": "ros2",
+            "args": ["launch", "${workspaceFolder}/launch/nav2.py"],
             "options": {
                 "cwd": "${workspaceFolder}"
             },

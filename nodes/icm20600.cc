@@ -13,7 +13,7 @@ using namespace std::chrono_literals;
 class ICM20600Publisher : public rclcpp::Node {
 public:
   ICM20600Publisher()
-  : Node("icm20600"), icm20600(0, true) {
+  : Node("icm20600_publisher"), icm20600(0, true) {
     icm20600.set_power_mode(ICM20600::SIX_AXIS_LOW_NOISE);
     icm20600.set_accel_dlpf(ICM20600::ACCEL_RATE_1K_BW_420);
     icm20600.set_gyro_dlpf(ICM20600::GYRO_RATE_1K_BW_176);

@@ -18,6 +18,7 @@ from math import pi
 import numpy
 import rclpy
 from rclpy.node import Node
+from rclpy.qos import QoSProfile, DurabilityPolicy
 from geometry_msgs.msg import Twist
 
 # https://adafruit.com/product/2927
@@ -50,7 +51,7 @@ class Controller(Node):
         cmd_vel_timeout = self.get_parameter("cmd_vel_timeout").value
         self.cmd_vel_timeout_timer = self.create_timer(cmd_vel_timeout, self.brake)
 
-        self.cmd_vel_sub = self.create_subscription(Twist, "/cmd_vel", self.cmd_vel, 10)
+        self.cmd_vel_sub = self.create_subscription(Twist, "/cmd_vel", self.cmd_vel, QoSProfile(depth=10, durability=DurabilityPolicy.VOLATILE))
 
     def cmd_vel(self, msg: Twist):
         self.cmd_vel_timeout_timer.reset()

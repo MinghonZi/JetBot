@@ -26,13 +26,14 @@ def generate_launch_description():
     base_tf2_laser = Node(
         package = "tf2_ros", 
         executable = "static_transform_publisher",
-        arguments = ["0", "0", "0", "0", "0", "0", "base_link", "laser_link"],
+        arguments = ["--frame-id", "base_link", "--child-frame-id", "laser_link"],
     )
 
     laser_tf2_imu = Node(
         package = "tf2_ros", 
         executable = "static_transform_publisher",
-        arguments = ["0", "0.01", "-0.01", "0", "3.14", "0", "laser_link", "imu_link"],
+        arguments = ["--y", "0.01", "--z", "-0.01", "--qy", "1.00", "--qw", "0.00",
+                     "--frame-id", "laser_link", "--child-frame-id", "imu_link"],
     )
 
     hls_lfcd_lds_publisher_node = Node(
@@ -60,7 +61,7 @@ def generate_launch_description():
         output = "screen",
         arguments = [
             "-configuration_directory", "params/",
-            "-configuration_basename", "2d_slam.lua"],
+            "-configuration_basename", "lds_2d.lua"],
         remappings = [
             ("/imu", "/imu"),
             ("/scan", "/scan"),

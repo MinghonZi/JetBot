@@ -48,6 +48,7 @@ https://github.com/howde-robotics/dragoon_bringup/tree/master/launch/include
 [Rust Embedded](https://github.com/rust-embedded)
 - [Embedded Rust documentation](https://docs.rust-embedded.org/)
 - [Hardware Abstraction Layer (HAL) for embedded systems](https://github.com/rust-embedded/embedded-hal/)
+- ! [Rust version of ROBOTIS HLDS HLS-LFCD-LDS (LDS-01) driver](https://github.com/gabrik/hls_lfcd_lds_rs)
 
 [A Comprehensive list of all Rust learning material](https://www.reddit.com/r/rust/comments/1143yar/a_comprehensive_list_of_all_rust_learning_material/)
 

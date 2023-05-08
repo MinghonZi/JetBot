@@ -242,9 +242,11 @@ cmake_args = (
     - https://github.com/pytorch/pytorch/tree/v1.10.2
 - Applied the pytorch-1.10-jetpack-4.5.1.patch although the JetPack version is 4.6
 - Added `python3.7 -m pip` prefix since the target Python version is 3.7
-- ! Compile with Clang 8 (6 is too old, and 9 is too new; GCC can't compile)
-- Installed the wheel file
+- ! Compiled with Clang 8 (6 is too old, and 9 is too new; GCC can't compile)
+- Installed the wheel file (also apt install libatlas-base-dev)
 - Built and installed the torchvision ([v0.11.3](https://github.com/pytorch/vision/tree/v0.11.3) is compatible with torch v1.10.2 as per the [matrix](https://github.com/pytorch/vision#installation))
+
+Tips: Enter [Console](https://wiki.debian.org/Console) and stop GUI to save some RAM for compiling.
 
 
 

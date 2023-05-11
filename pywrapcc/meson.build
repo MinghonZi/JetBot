@@ -1,4 +1,4 @@
-py = import('python').find_installation()
+py = import('python').find_installation('python3.10')
 
 # https://github.com/scipy/scipy/blob/main/scipy/meson.build#L93-L119
 # https://github.com/mesonbuild/meson/issues/4677

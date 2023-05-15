@@ -1,5 +1,5 @@
 {
-    "name": "JetBot",
+    "name": "AMR",
 
     "build": {
         "dockerfile": "./Dockerfile",

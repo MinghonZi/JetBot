@@ -10,11 +10,8 @@ inc = include_directories('inc')
 py = import('python').find_installation('python3.10')
 
 # https://mesonbuild.com/Wrapdb-projects.html
-# https://github.com/scipy/scipy/blob/main/scipy/meson.build#L93-L119
 # https://github.com/mesonbuild/meson/issues/4677
-pybind11 = declare_dependency(
-    include_directories : include_directories('../ext/pybind11/include'),
-)
+pybind11 = dependency('pybind11')
 
 subdir('nodes')
 subdir('pywrapcc')

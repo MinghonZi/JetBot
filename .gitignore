@@ -1,3 +1,7 @@
+# Meson subprojects
+/subprojects/*
+!/subprojects/*.wrap
+
 nohup.out
 
 # Byte-compiled / optimized / DLL files

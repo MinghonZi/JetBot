@@ -1,0 +1,52 @@
+{
+    "name": "AGV",
+
+    "build": {
+        "dockerfile": "./Dockerfile",
+        "context": ".."
+    },
+
+    "runArgs": [
+        "--runtime=nvidia",
+        "--volume=/tmp/argus_socket:/tmp/argus_socket",
+        "--privileged",
+        "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined"  // enables using a ptrace-based debugger
+    ],
+
+    "containerEnv": {
+        "EDITOR": "code --wait",
+        "GIT_EDITOR": "${containerEnv:EDITOR}"
+    },
+
+    "workspaceMount": "source=${localWorkspaceFolder},target=/ws,type=bind",
+    "workspaceFolder": "/ws",
+
+    "forwardPorts": [
+        33000
+    ],
+
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-azuretools.vscode-docker",
+                "ms-python.vscode-pylance",
+                "llvm-vs-code-extensions.vscode-clangd",
+                "mesonbuild.mesonbuild",
+                "vadimcn.vscode-lldb",
+                "mutantdino.resourcemonitor"
+            ],
+            "settings": {
+                "mesonbuild.buildFolder": "meson-build-debug",
+                "mesonbuild.configureOnOpen": true,
+                "clangd.path": "/usr/bin/clangd-16",
+                // https://github.com/microsoft/vscode-remote-release/issues/1671
+                "terminal.integrated.profiles.linux": {
+                    "bash": {
+                        "path": "/bin/bash",
+                        "args": ["-l"]
+                    }
+                }
+            }
+        }
+    }
+}

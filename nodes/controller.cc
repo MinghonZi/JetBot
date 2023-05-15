@@ -18,7 +18,6 @@
 #include <numbers>
 
 #include <rclcpp/rclcpp.hpp>
-#include <std_msgs/msg/bool.hpp>
 #include <geometry_msgs/msg/twist.hpp>
 
 #include <pybind11/pybind11.h>
@@ -51,9 +50,6 @@ public:
     // FIXME: QoS profile
     cmd_vel_ = this->create_subscription<geometry_msgs::msg::Twist>(
       "/cmd_vel", 10, std::bind(&Controller::cmd_vel, this, _1));
-
-    duck_detected_ = this->create_subscription<std_msgs::msg::Bool>(
-      "/duck_detected", 10, std::bind(&Controller::duck_detected, this, _1));
   }
 
 private:
@@ -93,19 +89,6 @@ private:
     rmotor.attr("throttle") = 0.0;
   }
 
-  // TODO: Two fns for unsub and resub /cmd_vel
-  void
-  duck_detected(const std_msgs::msg::Bool::SharedPtr detected) {
-    if (detected->data == true) {
-      brake();
-      cmd_vel_.reset(); // Unsubscribe /cmd_vel
-    } else {
-      // Resubscribe /cmd_vel
-      cmd_vel_ = this->create_subscription<geometry_msgs::msg::Twist>(
-      "/cmd_vel", 10, std::bind(&Controller::cmd_vel, this, _1));
-    }
-  }
-
   // https://adafruit.com/product/2927
   // https://adafruit.com/product/3777
   py::object MotorKit = py::module::import("adafruit_motorkit").attr("MotorKit");
@@ -115,7 +98,6 @@ private:
 
   rclcpp::TimerBase::SharedPtr cmd_vel_timeout_;
   rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr cmd_vel_;
-  rclcpp::Subscription<std_msgs::msg::Bool>::SharedPtr duck_detected_;
 };
 
 

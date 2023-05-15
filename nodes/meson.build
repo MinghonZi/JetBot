@@ -3,11 +3,17 @@
 rclcpp = dependency('rclcpp', method : 'cmake')
 std_msgs = dependency('std_msgs', method : 'cmake')
 sensor_msgs = dependency('sensor_msgs', method : 'cmake')
+geometry_msgs = dependency('geometry_msgs', method : 'cmake')
 
-executable('example_publisher',
-    sources : 'example.cc',
-    # include_directories :
-    dependencies : [rclcpp, std_msgs],
+executable('controller',
+    sources : 'controller.cc',
+    dependencies : [
+        rclcpp,
+        sensor_msgs,
+        geometry_msgs,
+        # https://mesonbuild.com/Python-module.html#dependency
+        pybind11,
+        py.dependency(embed:true)],
 )
 
 executable('lsm303d_publisher',

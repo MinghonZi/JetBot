@@ -1,1 +1,6 @@
+# Meson subprojects
+/subprojects/*
+!/subprojects/*.wrap
+
+# Byte-compiled / optimized / DLL files
 __pycache__/

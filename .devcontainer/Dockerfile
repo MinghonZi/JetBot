@@ -15,7 +15,7 @@ ENV CXX clang++-16
 
 RUN apt-get update && apt-get install --yes --no-install-recommends \
         ccache \
-        python3.7 \
+        python3.7 python3.7-dev \
  && python3.7 -m pip install -U pip \
  && python3.7 -m pip install meson ninja \
  && rm -rf /var/lib/apt/lists/*

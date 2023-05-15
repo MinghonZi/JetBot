@@ -1,4 +1,4 @@
-project('JetBot', 'cpp',
+project('Autonomous Mobile Robot', 'cpp',
     default_options : [
         'cpp_std=c++20',
         'warning_level=3',  # -Wall -Wextra -Wpedantic

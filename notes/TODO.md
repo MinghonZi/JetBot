@@ -14,6 +14,7 @@
 - Improve workspace setup
     - https://docs.ros.org/en/humble/How-To-Guides/Setup-ROS-2-with-VSCode-and-Docker-Container.html
     - https://github.com/athackst/vscode_ros2_workspace
+    - https://github.com/husarion/rosbot-docker/blob/ros2/demo/compose.rosbot.simulation.yaml
 
 - [ ] Precompiled header
 - [ ] Buck2 can help with multi-language interdependent monorepos

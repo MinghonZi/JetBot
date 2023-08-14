@@ -1,3 +1,6 @@
+//  This file is unfinished
+//  Reference materials: https://www.a1k0n.net/2018/11/13/fast-line-following.html  
+//                       (website about poly nominal regression, CSDN) https://blog.csdn.net/jiebaoshayebuhui/article/details/128587804?ops_request_misc=&request_id=&biz_id=102&utm_term=%E5%A4%9A%E9%A1%B9%E5%BC%8F%E5%9B%9E%E5%BD%92&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-4-128587804.142^v92^chatgptT3_1&spm=1018.2226.3001.4187
 #include <chrono>
 #include <functional>
 #include <memory>
